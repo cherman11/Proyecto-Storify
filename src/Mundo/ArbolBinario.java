@@ -17,6 +17,10 @@ public class ArbolBinario {
         this.raiz = null;
     }
 
+    public NodoArtista getRaiz() {
+        return raiz;
+    }
+
     /**
      * Metodo que permite la creacion de un nodo Artista en el arbol
      *
@@ -40,11 +44,33 @@ public class ArbolBinario {
                 } else {
                     aux = aux.getDerecho();
                     if (aux == null) {
-                        padre.setIzquierdo(nodo);
+                        padre.setDerecho(nodo);
                         return;
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Metodo para saber si un arbol esta vacio
+     *
+     * @return
+     */
+    public boolean estaVacio() {
+        return raiz == null;
+    }
+
+    /**
+     * Metodo que permite recorrer un arbol en nodo in-orden
+     *
+     * @param raiz
+     */
+    public void recorrerArbol(NodoArtista raiz) {
+        if (raiz != null) {
+            recorrerArbol(raiz.getIzquierdo());
+            System.out.println(raiz.getArtista().getNombre());
+            recorrerArbol(raiz.getDerecho());
         }
     }
 }

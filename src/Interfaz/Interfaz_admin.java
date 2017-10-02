@@ -5,16 +5,20 @@
  */
 package Interfaz;
 
+import Mundo.ArbolBinario;
+
 /**
  *
  * @author German
  */
 public class Interfaz_admin extends javax.swing.JFrame {
-
+ArbolBinario arbol;
     /**
      * Creates new form Interfaz_admin
+     * @param arbol
      */
-    public Interfaz_admin() {
+    public Interfaz_admin(ArbolBinario arbol) {        
+        this.arbol=arbol;
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -120,13 +124,13 @@ public class Interfaz_admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
-        Interfaz_registroAutor autor = new Interfaz_registroAutor();
+        Interfaz_registroAutor autor = new Interfaz_registroAutor(arbol);
         autor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistrarArtistaActionPerformed
 
     private void btnregistrarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarCancionActionPerformed
-        Interfaz_registarCancion cancion = new Interfaz_registarCancion();
+        Interfaz_registarCancion cancion = new Interfaz_registarCancion(arbol);
         cancion.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistrarCancionActionPerformed

@@ -5,6 +5,7 @@
  */
 package Interfaz;
 
+import Mundo.ArbolBinario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -175,7 +176,8 @@ public class Interfaz_login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ingrese Todos los campos");
         }
         if (txtUsuario.getText().equals("admin") && pwsUsuario.getText().equals("admin")) {
-            Interfaz_admin admin = new Interfaz_admin();
+            ArbolBinario arbol =  new ArbolBinario();
+            Interfaz_admin admin = new Interfaz_admin(arbol);
             admin.setVisible(true);
             this.dispose();
         }

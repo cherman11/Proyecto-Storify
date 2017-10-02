@@ -17,11 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class Interfaz_registroAutor extends javax.swing.JFrame {
 
+    ArbolBinario arbol;
+
     /**
      * Creates new form Interfaz_registroAutor
      */
-    public Interfaz_registroAutor() {
+    public Interfaz_registroAutor(ArbolBinario arbol) {
         initComponents();
+        this.arbol = arbol;
         setLocationRelativeTo(this);
         btnGrupo.add(btngruposi);
         btnGrupo.add(btngrupono);
@@ -49,6 +52,7 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
         txtnacionalidad = new javax.swing.JTextField();
         btngruposi = new javax.swing.JRadioButton();
         btngrupono = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
@@ -110,18 +114,40 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
 
         btngrupono.setText("NO");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtnacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtnacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(23, 23, 23))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1)
+                                .addGap(157, 157, 157)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -132,15 +158,7 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btngruposi)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btngrupono))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
+                                .addComponent(btngrupono)))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,11 +181,17 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
                     .addComponent(txtnacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btngruposi)
                     .addComponent(btngrupono))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnvolver)
-                    .addComponent(btnguardar))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnvolver)
+                            .addComponent(btnguardar))
+                        .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 190));
@@ -203,23 +227,21 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
             txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtnacionalidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             JOptionPane.showMessageDialog(this, "Completar Todos los  campos");
-        }
-        else{
-            int codigo= Integer.parseInt(txtcodigo.getText());
+        } else {
+            int codigo = Integer.parseInt(txtcodigo.getText());
             String nombre = txtnombre.getText();
-            String nacionalida= txtnacionalidad.getText();
+            String nacionalidad = txtnacionalidad.getText();
             boolean grupo = false;
-            if(btngruposi.isSelected()){
-               grupo= true;
-            }           
-            Artista artista = new  Artista(codigo, nombre, nacionalida, grupo);
-            ArbolBinario arbol = new ArbolBinario();
+            if (btngruposi.isSelected()) {
+                grupo = true;
+            }
+            Artista artista = new Artista(codigo, nombre, nacionalidad, grupo);
             arbol.agregarNodoArtista(artista);
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
-        Interfaz_admin admin= new Interfaz_admin();
+        Interfaz_admin admin = new Interfaz_admin(arbol);
         admin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
@@ -228,6 +250,14 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnacionalidadKeyPressed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      if(!arbol.estaVacio()){
+          arbol.recorrerArbol(arbol.getRaiz());
+      }else{
+          System.out.println("arbol is empty");
+      }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGrupo;
@@ -235,6 +265,7 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
     private javax.swing.JRadioButton btngruposi;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnvolver;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

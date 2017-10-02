@@ -5,6 +5,7 @@
  */
 package Interfaz;
 
+import Mundo.ArbolBinario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -13,11 +14,12 @@ import javax.swing.JOptionPane;
  * @author German
  */
 public class Interfaz_registarCancion extends javax.swing.JFrame {
-
+    ArbolBinario arbol;
     /**
      * Creates new form Interfaz_registarCancion
      */
-    public Interfaz_registarCancion() {
+    public Interfaz_registarCancion(ArbolBinario arbol) {
+        this.arbol= arbol;             
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -245,7 +247,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
-        Interfaz_admin admin    = new Interfaz_admin();
+        Interfaz_admin admin    = new Interfaz_admin(arbol);
         admin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
