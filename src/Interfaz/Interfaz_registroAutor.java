@@ -5,6 +5,9 @@
  */
 package Interfaz;
 
+import Mundo.ArbolBinario;
+import Mundo.Artista;
+import Mundo.NodoArtista;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -200,6 +203,18 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
             txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtnacionalidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             JOptionPane.showMessageDialog(this, "Completar Todos los  campos");
+        }
+        else{
+            int codigo= Integer.parseInt(txtcodigo.getText());
+            String nombre = txtnombre.getText();
+            String nacionalida= txtnacionalidad.getText();
+            boolean grupo = false;
+            if(btngruposi.isSelected()){
+               grupo= true;
+            }           
+            Artista artista = new  Artista(codigo, nombre, nacionalida, grupo);
+            ArbolBinario arbol = new ArbolBinario();
+            arbol.agregarNodoArtista(artista);
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 

@@ -75,12 +75,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnregistrarAutor" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="btnregistrarCancion" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel2" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="btnregistrarCancion" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnregistrarArtista" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="235" max="32767" attributes="0"/>
               </Group>
@@ -92,7 +90,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnregistrarAutor" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnregistrarArtista" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnregistrarCancion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="164" max="32767" attributes="0"/>
@@ -106,17 +104,17 @@
             <Property name="text" type="java.lang.String" value="Panel de Opciones"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnregistrarAutor">
+        <Component class="javax.swing.JButton" name="btnregistrarArtista">
           <Properties>
-            <Property name="text" type="java.lang.String" value="registrar autor"/>
+            <Property name="text" type="java.lang.String" value="registrar Artista"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnregistrarAutorActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnregistrarArtistaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnregistrarCancion">
           <Properties>
-            <Property name="text" type="java.lang.String" value="registrar cancion"/>
+            <Property name="text" type="java.lang.String" value="registrar Cancion"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnregistrarCancionActionPerformed"/>

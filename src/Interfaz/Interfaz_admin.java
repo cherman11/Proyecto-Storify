@@ -31,7 +31,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         PanelOpciones = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        btnregistrarAutor = new javax.swing.JButton();
+        btnregistrarArtista = new javax.swing.JButton();
         btnregistrarCancion = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
 
@@ -43,14 +43,14 @@ public class Interfaz_admin extends javax.swing.JFrame {
 
         jLabel2.setText("Panel de Opciones");
 
-        btnregistrarAutor.setText("registrar autor");
-        btnregistrarAutor.addActionListener(new java.awt.event.ActionListener() {
+        btnregistrarArtista.setText("registrar Artista");
+        btnregistrarArtista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnregistrarAutorActionPerformed(evt);
+                btnregistrarArtistaActionPerformed(evt);
             }
         });
 
-        btnregistrarCancion.setText("registrar cancion");
+        btnregistrarCancion.setText("registrar Cancion");
         btnregistrarCancion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregistrarCancionActionPerformed(evt);
@@ -63,11 +63,10 @@ public class Interfaz_admin extends javax.swing.JFrame {
             PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnregistrarAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnregistrarCancion))
+                .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnregistrarCancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnregistrarArtista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(235, Short.MAX_VALUE))
         );
         PanelOpcionesLayout.setVerticalGroup(
@@ -76,7 +75,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(btnregistrarAutor)
+                .addComponent(btnregistrarArtista)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnregistrarCancion)
                 .addContainerGap(164, Short.MAX_VALUE))
@@ -120,11 +119,11 @@ public class Interfaz_admin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnregistrarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarAutorActionPerformed
+    private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
         Interfaz_registroAutor autor = new Interfaz_registroAutor();
         autor.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnregistrarAutorActionPerformed
+    }//GEN-LAST:event_btnregistrarArtistaActionPerformed
 
     private void btnregistrarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarCancionActionPerformed
         Interfaz_registarCancion cancion = new Interfaz_registarCancion();
@@ -141,7 +140,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelOpciones;
-    private javax.swing.JButton btnregistrarAutor;
+    private javax.swing.JButton btnregistrarArtista;
     private javax.swing.JButton btnregistrarCancion;
     private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
