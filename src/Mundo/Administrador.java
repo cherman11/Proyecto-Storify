@@ -10,5 +10,5 @@ package Mundo;
  * @author German
  */
 public class Administrador {
-    //por ahora no es necesario construir una clase administrador
+        //por ahora no es necesario construir una clase administrador
 }
