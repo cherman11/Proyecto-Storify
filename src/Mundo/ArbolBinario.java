@@ -34,8 +34,11 @@ public class ArbolBinario {
             NodoArtista aux = raiz;
             NodoArtista padre;
             while (true) {
-                padre = aux;
-                if (artista.getCodigo() < aux.getArtista().getCodigo()) {
+                String artista1=artista.getNombre();
+                String artista2=aux.getArtista().getNombre();
+                int comparacion=artista1.compareTo(artista2);
+                padre = aux;                
+                if (comparacion<0) {
                     aux = aux.getIzquierdo();
                     if (aux == null) {
                         padre.setIzquierdo(nodo);
@@ -62,7 +65,7 @@ public class ArbolBinario {
     }
 
     /**
-     * Metodo que permite recorrer un arbol en nodo in-orden
+     * Metodo que permite recorrer un arbol en modo in-orden
      *
      * @param raiz
      */
