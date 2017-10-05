@@ -124,7 +124,7 @@ ArbolBinario arbol;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
-        Interfaz_registroAutor autor = new Interfaz_registroAutor(arbol);
+        Interfaz_registroArtista autor = new Interfaz_registroArtista(arbol);
         autor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistrarArtistaActionPerformed

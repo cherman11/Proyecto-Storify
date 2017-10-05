@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
  *
  * @author German
  */
-public class Interfaz_registroAutor extends javax.swing.JFrame {
+public class Interfaz_registroArtista extends javax.swing.JFrame {
 
     ArbolBinario arbol;
 
     /**
      * Creates new form Interfaz_registroAutor
      */
-    public Interfaz_registroAutor(ArbolBinario arbol) {
+    public Interfaz_registroArtista(ArbolBinario arbol) {
         initComponents();
         this.arbol = arbol;
         setLocationRelativeTo(this);
@@ -198,7 +198,7 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Century Schoolbook", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel5.setText("Registro autor");
+        jLabel5.setText("Registro Artista");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoRegistroUsuario.jpg"))); // NOI18N
@@ -251,11 +251,14 @@ public class Interfaz_registroAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnacionalidadKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      if(!arbol.estaVacio()){
-          arbol.recorrerArbol(arbol.getRaiz());
-      }else{
-          System.out.println("arbol is empty");
-      }
+        //////////////Se obitnene cuantos nodos tiene el arbol
+        System.out.println(" "+arbol.cantidadNodos(0));        
+//      Metodo que muestar los nodos registrados en el arbol binario.
+//      if(!arbol.estaVacio()){
+//          arbol.recorrerArbol(arbol.getRaiz());
+//      }else{
+//          System.out.println("arbol is empty");
+//      }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
