@@ -5,20 +5,27 @@
  */
 package Interfaz;
 
-import Mundo.ArbolBinario;
+import Mundo.*;
 
 /**
  *
  * @author German
  */
 public class Interfaz_admin extends javax.swing.JFrame {
-ArbolBinario arbol;
+
+    ArbolBinario arbol;
+    ListaCancion listaCanciones;
+    Interfaz_login log;
+
     /**
      * Creates new form Interfaz_admin
+     *
      * @param arbol
      */
-    public Interfaz_admin(ArbolBinario arbol) {        
-        this.arbol=arbol;
+    public Interfaz_admin(ArbolBinario arbol, ListaCancion listaCanciones, Interfaz_login log) {
+        this.log = log;
+        this.arbol = arbol;
+        this.listaCanciones = listaCanciones;
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -124,21 +131,21 @@ ArbolBinario arbol;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
-        Interfaz_registroArtista autor = new Interfaz_registroArtista(arbol);
+        Interfaz_registroArtista autor = new Interfaz_registroArtista(arbol, listaCanciones,log);
         autor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistrarArtistaActionPerformed
 
     private void btnregistrarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarCancionActionPerformed
-        Interfaz_registarCancion cancion = new Interfaz_registarCancion(arbol);
+        Interfaz_registarCancion cancion = new Interfaz_registarCancion(arbol, listaCanciones,log);
         cancion.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistrarCancionActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-       Interfaz_login login = new Interfaz_login();
-       login.setVisible(true);
-       this.dispose();
+        log.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_btnsalirActionPerformed
 
 

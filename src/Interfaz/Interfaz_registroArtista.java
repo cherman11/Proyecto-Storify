@@ -5,9 +5,7 @@
  */
 package Interfaz;
 
-import Mundo.ArbolBinario;
-import Mundo.Artista;
-import Mundo.NodoArtista;
+import Mundo.*;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -16,15 +14,18 @@ import javax.swing.JOptionPane;
  * @author German
  */
 public class Interfaz_registroArtista extends javax.swing.JFrame {
-
+    Interfaz_login log;
     ArbolBinario arbol;
+    ListaCancion listaCanciones;
 
     /**
      * Creates new form Interfaz_registroAutor
      */
-    public Interfaz_registroArtista(ArbolBinario arbol) {
+    public Interfaz_registroArtista(ArbolBinario arbol, ListaCancion listaCancion, Interfaz_login log) {
         initComponents();
+        this.log= log;
         this.arbol = arbol;
+        this.listaCanciones = listaCancion;
         setLocationRelativeTo(this);
         btnGrupo.add(btngruposi);
         btnGrupo.add(btngrupono);
@@ -241,7 +242,7 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
-        Interfaz_admin admin = new Interfaz_admin(arbol);
+        Interfaz_admin admin = new Interfaz_admin(arbol,listaCanciones,log);
         admin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
@@ -251,14 +252,12 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnacionalidadKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //////////////Se obitnene cuantos nodos tiene el arbol
-        System.out.println(" "+arbol.cantidadNodos(0));        
-//      Metodo que muestar los nodos registrados en el arbol binario.
-//      if(!arbol.estaVacio()){
-//          arbol.recorrerArbol(arbol.getRaiz());
-//      }else{
-//          System.out.println("arbol is empty");
-//      }
+        System.out.println(" " + arbol.cantidadNodos(0));
+        if (arbol.getRaiz() != null) {
+            arbol.recorrerArbol(arbol.getRaiz());
+        } else {
+            System.out.println("Arbol is empty");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

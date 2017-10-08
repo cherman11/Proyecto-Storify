@@ -5,7 +5,7 @@
  */
 package Mundo;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +13,17 @@ import java.util.Iterator;
  */
 public class ArbolBinario {
 
+    ArrayList<Artista> artistas = new ArrayList<>();
+    String[] vector;
     NodoArtista raiz;
+
+    public ArrayList<Artista> getArtistas() {
+        return artistas;
+    }
+
+    public String[] getVector() {
+        return vector;
+    }
 
     public ArbolBinario() {
         this.raiz = null;
@@ -32,24 +42,27 @@ public class ArbolBinario {
         NodoArtista nodo = new NodoArtista(artista);
         if (raiz == null) {
             raiz = nodo;
+            artistas.add(artista);
         } else {
             NodoArtista aux = raiz;
             NodoArtista padre;
             while (true) {
-                String artista1=artista.getNombre();
-                String artista2=aux.getArtista().getNombre();
-                int comparacion=artista1.compareTo(artista2);
-                padre = aux;                
-                if (comparacion<0) {
+                String artista1 = artista.getNombre();
+                String artista2 = aux.getArtista().getNombre();
+                int comparacion = artista1.compareTo(artista2);
+                padre = aux;
+                if (comparacion < 0) {
                     aux = aux.getIzquierdo();
                     if (aux == null) {
                         padre.setIzquierdo(nodo);
+                        artistas.add(artista);
                         return;
                     }
                 } else {
                     aux = aux.getDerecho();
                     if (aux == null) {
                         padre.setDerecho(nodo);
+                        artistas.add(artista);
                         return;
                     }
                 }
@@ -70,44 +83,42 @@ public class ArbolBinario {
      * Metodo que permite recorrer un arbol en modo in-orden
      *
      * @param raiz
-     * @param i
      */
-    public void recorrerArbol(NodoArtista raiz) {          
+    public void recorrerArbol(NodoArtista raiz) {
         if (raiz != null) {
             recorrerArbol(raiz.getIzquierdo());
             System.out.println(raiz.getArtista().getNombre());
             recorrerArbol(raiz.getDerecho());
         }
     }
-    
-    
-    
+
     /**
      * Metodo que permite saber cuantos nodos tiene el arbol
+     *
      * @param nivel desde la raiz, nivel = 0, siempre
-     * @return 
+     * @return
      */
-    public int cantidadNodos(int nivel){
-       return cantidadNodos(this.raiz,nivel);
-    }   
+    public int cantidadNodos(int nivel) {
+        return cantidadNodos(this.raiz, nivel);
+    }
 
     /**
      * Metodo recargado para contar nodos dentro del arbol.
+     *
      * @param raizAux
      * @param nivel
-     * @return 
+     * @return
      */
     private int cantidadNodos(NodoArtista raizAux, int nivel) {
-        if(raizAux==null){
+        if (raizAux == null) {
             return 0;
         }
-            int cantNodosIzquierdo=cantidadNodos(raizAux.getIzquierdo(), nivel-1);
-            int cantNodosDerecho=cantidadNodos(raizAux.getDerecho(),nivel-1);
-        if(nivel<=0){
-            return cantNodosIzquierdo+cantNodosDerecho+1;
-        }
-        else{
-            return cantNodosIzquierdo+cantNodosDerecho;
+        int cantNodosIzquierdo = cantidadNodos(raizAux.getIzquierdo(), nivel - 1);
+        int cantNodosDerecho = cantidadNodos(raizAux.getDerecho(), nivel - 1);
+        if (nivel <= 0) {
+            return cantNodosIzquierdo + cantNodosDerecho + 1;
+        } else {
+            return cantNodosIzquierdo + cantNodosDerecho;
         }
     }
 }

@@ -12,10 +12,12 @@ package Mundo;
 public class Cancion {
 
     //Atributos codigo, nombre, album, caratula, año, duracion, genero, url.
+    Artista artista;
     String nombre, album, duracion, genero, url;
     int codigo, año;
 
-    public Cancion(String nombre, String album, String duracion, String genero, String url, int codigo, int año) {
+    public Cancion(Artista artista, String nombre, String album, String duracion, String genero, String url, int codigo, int año) {
+        this.artista = artista;
         this.nombre = nombre;
         this.album = album;
         this.duracion = duracion;
@@ -23,6 +25,14 @@ public class Cancion {
         this.url = url;
         this.codigo = codigo;
         this.año = año;
+    }
+
+    public Artista getArtista() {
+        return artista;
+    }
+
+    public void setArtista(Artista artista) {
+        this.artista = artista;
     }
 
     public String getNombre() {

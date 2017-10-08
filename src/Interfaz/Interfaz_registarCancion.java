@@ -6,7 +6,12 @@
 package Interfaz;
 
 import Mundo.ArbolBinario;
+import Mundo.Artista;
+import Mundo.Cancion;
+import Mundo.ListaCancion;
+import Mundo.NodoCancion;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,26 +20,28 @@ import javax.swing.JOptionPane;
  */
 public class Interfaz_registarCancion extends javax.swing.JFrame {
 
+    Interfaz_login log;
     ArbolBinario arbol;
+    ListaCancion listaCanciones;
 
     /**
      * Creates new form Interfaz_registarCancion
      */
-    public Interfaz_registarCancion(ArbolBinario arbol) {
+    public Interfaz_registarCancion(ArbolBinario arbol, ListaCancion listaCanciones, Interfaz_login log) {
+        this.log = log;
         this.arbol = arbol;
+        this.listaCanciones = listaCanciones;
         initComponents();
         setLocationRelativeTo(this);
         cargarCombo();
-
     }
 
     public void cargarCombo() {
-        String clave;
-        if (!arbol.estaVacio()) {
-            
-            arbol.recorrerArbol(arbol.getRaiz());            
-        } else {
-            System.out.println("arbol is empty");
+        int parada = arbol.cantidadNodos(0);
+        ArrayList<Artista> item = arbol.getArtistas();
+        for (int i = 0; i < parada; i++) {
+            String artista = item.get(i).getNombre();
+            cboArtista.addItem(artista);
         }
     }
 
@@ -60,13 +67,16 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtcaratula = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jcboaño = new javax.swing.JComboBox<>();
+        cboaño = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jcbogenero = new javax.swing.JComboBox<>();
+        cbogenero = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         txtyoutube = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         cboArtista = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        txtduracion = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,43 +129,36 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel3.setText("Album");
 
-        txtalbum.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtalbumKeyPressed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel6.setText("Caratula");
-
-        txtcaratula.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtcaratulaKeyPressed(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel8.setText("Año");
 
-        jcboaño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "1960", "1970", "1980", "2000", "2010", "2017" }));
+        cboaño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "1960", "1970", "1980", "2000", "2010", "2017" }));
 
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel9.setText("Genero");
 
-        jcbogenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Rock", "Pop", "Punk", "Reggaeton", "Electrónica" }));
+        cbogenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Rock", "Pop", "Punk", "Reggaeton", "Electrónica" }));
 
         jLabel10.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel10.setText("Url Youtube");
 
-        txtyoutube.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtyoutubeKeyPressed(evt);
-            }
-        });
-
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel1.setText("Artista/autor");
 
         cboArtista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE" }));
+
+        jLabel11.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel11.setText("Duracion");
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,88 +166,100 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnvolver)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnguardar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel10)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtcodigo, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtalbum, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jcboaño, javax.swing.GroupLayout.Alignment.LEADING, 0, 199, Short.MAX_VALUE))
-                            .addGap(23, 23, 23)
+                                .addComponent(cboaño, javax.swing.GroupLayout.Alignment.LEADING, 0, 199, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel9)
+                                .addComponent(cbogenero, 0, 199, Short.MAX_VALUE)
+                                .addComponent(txtcaratula, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                                .addComponent(jLabel6)))
+                        .addComponent(txtyoutube, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnvolver)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnguardar)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtcodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel6)
-                                .addComponent(txtcaratula, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9)
-                                .addComponent(jcbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(txtyoutube)
+                                .addComponent(jLabel4)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(cboArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboArtista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtduracion, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cboArtista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboArtista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtduracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtalbum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcaratula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtalbum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtcaratula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcboaño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboaño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtyoutube, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnvolver)
                     .addComponent(btnguardar)
-                    .addComponent(btnvolver))
-                .addGap(19, 19, 19))
+                    .addComponent(jButton1))
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, 350));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, 390));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoRegistroUsuario.jpg"))); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 500, 460));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/musica.jpg"))); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 510));
 
-        pack();
+        setBounds(0, 0, 532, 494);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtcodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoKeyPressed
@@ -262,43 +277,53 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombreKeyPressed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-        if (txtcodigo.getText().equals("") || txtnombre.getText().equals("") || txtalbum.getText().equals("")
+        if (cboArtista.getSelectedIndex() == 0 || txtcodigo.getText().equals("") || txtnombre.getText().equals("") || txtalbum.getText().equals("")
                 || txtcaratula.getText().equals("") || txtyoutube.getText().equals("")
-                || jcboaño.getSelectedIndex() == 0 || jcbogenero.getSelectedIndex() == 0) {
+                || cboaño.getSelectedIndex() == 0 || cbogenero.getSelectedIndex() == 0) {
             txtcodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtalbum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtcaratula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtyoutube.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             JOptionPane.showMessageDialog(this, "Completar Todos los  campos");
+        } else {
+            Artista artista = arbol.getArtistas().get(cboArtista.getSelectedIndex() - 1);
+            String nombre = txtnombre.getText();
+            String album = txtalbum.getText();
+            String duracion = txtduracion.getText();
+            String genero = cbogenero.getSelectedItem().toString();
+            String url = txtyoutube.getText();
+            int codigo = Integer.parseInt(txtcodigo.getText());
+            int año = Integer.parseInt(cboaño.getSelectedItem().toString());
+
+            Cancion cancion = new Cancion(artista, nombre, album, duracion, genero, url, codigo, año);
+            listaCanciones.agregarFinal(cancion);
         }
+
+
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
-        Interfaz_admin admin = new Interfaz_admin(arbol);
+        Interfaz_admin admin = new Interfaz_admin(arbol, listaCanciones, log);
         admin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
 
-    private void txtalbumKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtalbumKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtalbumKeyPressed
-
-    private void txtcaratulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcaratulaKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcaratulaKeyPressed
-
-    private void txtyoutubeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtyoutubeKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtyoutubeKeyPressed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listaCanciones.imprimir();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnvolver;
     private javax.swing.JComboBox<String> cboArtista;
+    private javax.swing.JComboBox<String> cboaño;
+    private javax.swing.JComboBox<String> cbogenero;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -308,11 +333,10 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> jcboaño;
-    private javax.swing.JComboBox<String> jcbogenero;
     private javax.swing.JTextField txtalbum;
     private javax.swing.JTextField txtcaratula;
     private javax.swing.JTextField txtcodigo;
+    private javax.swing.JTextField txtduracion;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtyoutube;
     // End of variables declaration//GEN-END:variables

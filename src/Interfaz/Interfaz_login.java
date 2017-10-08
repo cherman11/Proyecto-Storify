@@ -6,6 +6,7 @@
 package Interfaz;
 
 import Mundo.ArbolBinario;
+import Mundo.ListaCancion;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -15,6 +16,9 @@ import javax.swing.JOptionPane;
  * @author German
  */
 public class Interfaz_login extends javax.swing.JFrame {
+
+    ArbolBinario arbol = new ArbolBinario();
+    ListaCancion listaCanciones = new ListaCancion();
 
     /**
      * Creates new form Interfaz_login1
@@ -176,16 +180,18 @@ public class Interfaz_login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ingrese Todos los campos");
         }
         if (txtUsuario.getText().equals("admin") && pwsUsuario.getText().equals("admin")) {
-            ArbolBinario arbol =  new ArbolBinario();
-            Interfaz_admin admin = new Interfaz_admin(arbol);
+            Interfaz_admin admin = new Interfaz_admin(arbol, listaCanciones, this);
             admin.setVisible(true);
-            this.dispose();
+            this.setVisible(false);
+            this.txtUsuario.setText("");
+            this.pwsUsuario.setText("");
         }
 
         if (txtUsuario.getText().equals("user") && pwsUsuario.getText().equals("user")) {
             Interfaz_usuario usuario = new Interfaz_usuario(txtUsuario.getText());
             usuario.setVisible(true);
             this.dispose();
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
