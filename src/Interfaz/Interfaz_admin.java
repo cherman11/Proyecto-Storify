@@ -18,7 +18,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
     Interfaz_login log;
 
     /**
-     * Creates new form Interfaz_admin
+     * Metodo constructor
      *
      * @param arbol
      */

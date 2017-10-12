@@ -6,7 +6,7 @@
 package Mundo;
 
 /**
- *
+ *Clase que permite crear un nodo para la lista enlazada, este nodo es de tipo Cancion
  * @author German
  */
 public class NodoCancion {

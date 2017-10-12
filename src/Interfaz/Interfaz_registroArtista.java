@@ -115,7 +115,7 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
 
         btngrupono.setText("NO");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Prueba");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

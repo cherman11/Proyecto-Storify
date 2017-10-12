@@ -39,7 +39,7 @@ public class Interfaz_login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnIngresar = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        lbRegistro = new javax.swing.JLabel();
         pwsUsuario = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,19 +70,19 @@ public class Interfaz_login extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
-        jLabel5.setText("Registrarse");
-        jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        lbRegistro.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        lbRegistro.setText("Registrarse");
+        lbRegistro.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jLabel5MouseMoved(evt);
+                lbRegistroMouseMoved(evt);
             }
         });
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
+                lbRegistroMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel5MousePressed(evt);
+                lbRegistroMousePressed(evt);
             }
         });
 
@@ -126,7 +126,7 @@ public class Interfaz_login extends javax.swing.JFrame {
                             .addGap(37, 37, 37)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
+                                    .addComponent(lbRegistro)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnIngresar))
                                 .addComponent(pwsUsuario)
@@ -150,7 +150,7 @@ public class Interfaz_login extends javax.swing.JFrame {
                         .addComponent(pwsUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
+                        .addComponent(lbRegistro)
                         .addComponent(btnIngresar))
                     .addContainerGap(28, Short.MAX_VALUE)))
         );
@@ -195,19 +195,19 @@ public class Interfaz_login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void jLabel5MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseMoved
-        jLabel5.setForeground(Color.RED);
-    }//GEN-LAST:event_jLabel5MouseMoved
+    private void lbRegistroMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRegistroMouseMoved
+        lbRegistro.setForeground(Color.RED);
+    }//GEN-LAST:event_lbRegistroMouseMoved
 
-    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+    private void lbRegistroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRegistroMousePressed
         Interfaz_registroUsuario nuevoUser = new Interfaz_registroUsuario();
         nuevoUser.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jLabel5MousePressed
+    }//GEN-LAST:event_lbRegistroMousePressed
 
-    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
-        jLabel5.setForeground(Color.black);
-    }//GEN-LAST:event_jLabel5MouseExited
+    private void lbRegistroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRegistroMouseExited
+        lbRegistro.setForeground(Color.black);
+    }//GEN-LAST:event_lbRegistroMouseExited
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         java.awt.event.ActionEvent e = null;
@@ -272,10 +272,10 @@ public class Interfaz_login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbRegistro;
     private javax.swing.JPasswordField pwsUsuario;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

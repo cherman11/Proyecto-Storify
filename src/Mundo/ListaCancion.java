@@ -8,6 +8,7 @@ package Mundo;
 import java.util.Iterator;
 
 /**
+ * Clase que permite crear la lista de canciones
  *
  * @author German
  */
@@ -143,8 +144,6 @@ public class ListaCancion implements Iterable {
         return null;
     }
 
-    
-
     /**
      * Verifica si un dato existe dentro de la lista
      *
@@ -174,10 +173,6 @@ public class ListaCancion implements Iterable {
         return null;
     }
 
-    
-
-    
-
     /**
      * metodo para imprimir en consola la lista generada.
      */
@@ -189,12 +184,6 @@ public class ListaCancion implements Iterable {
             aux = aux.getSiguiente();
         }
     }
-
-    
-
-  
-
-
 
     @Override
     public Iterator iterator() {

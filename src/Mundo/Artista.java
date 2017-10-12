@@ -6,7 +6,7 @@
 package Mundo;
 
 /**
- *
+ * Clase que permite la creacion de un artista
  * @author German
  */
 public class Artista {
@@ -16,6 +16,13 @@ public class Artista {
     String nombre,nacionalidad;
     boolean grupo;
 
+    /**
+     * Metodo constructor de la clase artista
+     * @param codigo
+     * @param nombre
+     * @param nacionalidad
+     * @param grupo 
+     */
     public Artista(int codigo, String nombre, String nacionalidad, boolean grupo) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -25,8 +32,6 @@ public class Artista {
     
     
     
-    //crear lista doblemente enlazada de canciones
-
     public int getCodigo() {
         return codigo;
     }

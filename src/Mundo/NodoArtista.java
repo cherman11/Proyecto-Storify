@@ -6,7 +6,7 @@
 package Mundo;
 
 /**
- *
+ * Clase que permite crear un Nodo para el arbol binario, este nodo es de tipo artista
  * @author German
  */
 public class NodoArtista {
@@ -15,6 +15,10 @@ public class NodoArtista {
     public NodoArtista izquierdo;
     public NodoArtista derecho;
 
+    /**
+     * Metodo constructor
+     * @param artista 
+     */
     public NodoArtista(Artista artista) {
         this.artista = artista;
     }

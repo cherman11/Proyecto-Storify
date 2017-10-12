@@ -8,7 +8,7 @@ package Mundo;
 import java.util.ArrayList;
 
 /**
- *
+ * Clase que permite la cracion del arbol binario
  * @author German
  */
 public class ArbolBinario {

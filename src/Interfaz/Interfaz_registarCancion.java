@@ -9,7 +9,6 @@ import Mundo.ArbolBinario;
 import Mundo.Artista;
 import Mundo.Cancion;
 import Mundo.ListaCancion;
-import Mundo.NodoCancion;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -153,7 +152,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel11.setText("Duracion");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Prueba");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

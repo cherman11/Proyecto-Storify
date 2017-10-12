@@ -6,7 +6,7 @@
 package Mundo;
 
 /**
- *
+ *Clase que permite crear una cancion
  * @author German
  */
 public class Cancion {
@@ -16,6 +16,17 @@ public class Cancion {
     String nombre, album, duracion, genero, url;
     int codigo, año;
 
+    /**
+     * Metodo constructor de la clase cancion
+     * @param artista
+     * @param nombre
+     * @param album
+     * @param duracion
+     * @param genero
+     * @param url
+     * @param codigo
+     * @param año 
+     */
     public Cancion(Artista artista, String nombre, String album, String duracion, String genero, String url, int codigo, int año) {
         this.artista = artista;
         this.nombre = nombre;
