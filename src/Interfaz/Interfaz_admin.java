@@ -131,13 +131,13 @@ public class Interfaz_admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
-        Interfaz_registroArtista autor = new Interfaz_registroArtista(arbol, listaCanciones,log);
+        Interfaz_registroArtista autor = new Interfaz_registroArtista(arbol, listaCanciones, log);
         autor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistrarArtistaActionPerformed
 
     private void btnregistrarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarCancionActionPerformed
-        Interfaz_registarCancion cancion = new Interfaz_registarCancion(arbol, listaCanciones,log);
+        Interfaz_registarCancion cancion = new Interfaz_registarCancion(arbol, listaCanciones, log);
         cancion.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistrarCancionActionPerformed
