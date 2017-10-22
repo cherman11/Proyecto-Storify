@@ -20,6 +20,9 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
 
     /**
      * Creates new form Interfaz_registroAutor
+     * @param arbol
+     * @param listaCancion
+     * @param log
      */
     public Interfaz_registroArtista(ArbolBinario arbol, ListaCancion listaCancion, Interfaz_login log) {
         initComponents();
