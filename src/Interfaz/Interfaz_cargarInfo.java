@@ -10,16 +10,18 @@ import Mundo.Artista;
 import Mundo.Cancion;
 import Mundo.ListaCancion;
 import Mundo.NodoArtista;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.midi.Soundbank;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,6 +33,7 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     ArbolBinario arbol;
     ListaCancion listaCanciones;
     File archivo;
+    FileOutputStream salida;
     String informacion = "";
 
     /**
@@ -45,6 +48,8 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         DialogCargar.setVisible(false);
         DialogCargar.setSize(800, 600);
         txtArea.setVisible(false);
+        txtArea.setEditable(false);
+        btnSalvar.setVisible(false);
         this.admin = admin;
         this.arbol = arbol;
         this.listaCanciones = listaCanciones;
@@ -67,6 +72,8 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         txtArea = new javax.swing.JTextArea();
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         fileCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +108,18 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         jLabel1.setText("Cargar Informacion");
 
         lblSeleccionar.setText("Seleccionar Archivo");
+        lblSeleccionar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                lblSeleccionarMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblSeleccionarMouseMoved(evt);
+            }
+        });
         lblSeleccionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSeleccionarMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblSeleccionarMousePressed(evt);
             }
@@ -125,6 +143,20 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,7 +175,12 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
                                 .addComponent(btnRegresar))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -157,7 +194,11 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
                     .addComponent(btnRegresar)
                     .addComponent(btnGuardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnSalvar))
                 .addContainerGap())
         );
 
@@ -206,7 +247,6 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //final String nomFile = "src/archivos/Lista_1.txt";
         Scanner entrada = null;
         boolean artista = false;
         boolean cancion = false;
@@ -217,48 +257,88 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
                 String linea = entrada.nextLine();
                 if (linea.equals("#Artistas")) {
                     artista = true;
-                    cancion=false;
+                    cancion = false;
                     linea = entrada.nextLine();
                 } else if (linea.equals("#Canciones")) {
                     cancion = true;
-                    artista=false;
+                    artista = false;
                     linea = entrada.nextLine();
                 }
                 if (artista) {
-                    
                     String[] arregloArtista = linea.split(";");
                     System.out.println(arregloArtista[0]);
                     Artista artistaNuevo = new Artista(Integer.parseInt(arregloArtista[0]), arregloArtista[1], arregloArtista[2], Boolean.parseBoolean(arregloArtista[3]));
                     arbol.agregarNodoArtista(artistaNuevo);
                 } else if (cancion) {
-                   
-                    String[] arregloCancion = linea.split(";");                    
-                    NodoArtista artistaNodo = arbol.buscarNodo(arregloCancion[0]);                    
-                    Artista artistaNuevo= artistaNodo.getArtista();
+
+                    String[] arregloCancion = linea.split(";");
+                    NodoArtista artistaNodo = arbol.buscarNodo(arregloCancion[0]);
+                    Artista artistaNuevo = artistaNodo.getArtista();
                     Cancion cancionNueva = new Cancion(artistaNuevo, arregloCancion[1], arregloCancion[2], arregloCancion[3], arregloCancion[4],
-                            arregloCancion[5], Integer.parseInt(arregloCancion[6]), Integer.parseInt(arregloCancion[7])); 
+                            arregloCancion[5], Integer.parseInt(arregloCancion[6]), Integer.parseInt(arregloCancion[7]));
                     listaCanciones.agregarFinal(cancionNueva);
                 }
             }
         } catch (FileNotFoundException ex) {
+             JOptionPane.showMessageDialog(this, "No se han podido guardar los datos cargados, revice los datos a almacenar.");
             Logger.getLogger(Interfaz_cargarInfo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         for (int i = 0; i < informacion.length(); i++) {
             if (informacion.charAt(i) == '#' && informacion.charAt(i + 1) == 'A') {
-
-                System.out.println("Cargando artistas");
-            } else if (informacion.charAt(i) == '#' && informacion.charAt(i + 1) == 'C') {
-                System.out.println("Cargando Canciones");
+                 JOptionPane.showMessageDialog(this, "Se han cargado correctamente Artistas y canciones.");
+                 informacion="";
+                 this.dispose();
+                 admin.setVisible(true);
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void lblSeleccionarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeleccionarMouseMoved
+        lblSeleccionar.setForeground(Color.red);
+
+    }//GEN-LAST:event_lblSeleccionarMouseMoved
+
+    private void lblSeleccionarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeleccionarMouseDragged
+        lblSeleccionar.setForeground(Color.black);        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSeleccionarMouseDragged
+
+    private void lblSeleccionarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeleccionarMouseExited
+        lblSeleccionar.setForeground(Color.black);       // TODO add your handling code here:
+
+    }//GEN-LAST:event_lblSeleccionarMouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txtArea.setEditable(true);
+        btnSalvar.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public String guardarArchivo(File archivo, String informacion) {
+        String mensaje = null;
+        try {
+            salida = new FileOutputStream(archivo);
+            byte[] bytxt = informacion.getBytes();
+            salida.write(bytxt);
+            mensaje = "Archivo guardado";
+        } catch (Exception e) {
+            mensaje = "Archivo no se puede guardar";
+        }
+
+        return mensaje;
+    }
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        informacion=txtArea.getText();
+        txtArea.setText("");
+        JOptionPane.showMessageDialog(this,guardarArchivo(archivo, informacion));
+        informacion="";            
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog DialogCargar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JFileChooser fileCargar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSeleccionar;

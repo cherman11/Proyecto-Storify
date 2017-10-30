@@ -1,0 +1,13 @@
+#Artistas
+1;Herman;Col;true
+2;Jelipe;Col;false
+3;Carlos;Brz;true
+#Canciones
+Herman;Cancion1;Vol1;04:26;Rock;www.Youtube.com;1;2012
+Jelipe;Cancion2;Vol1;04:26;Rock;www.Youtube.com;1;2012
+Jelipe;Cancion3;Vol1;04:26;Rock;www.Youtube.com;1;2012
+Jelipe;Cancion4;Vol1;04:26;Rock;www.Youtube.com;1;2012
+
+
+
+

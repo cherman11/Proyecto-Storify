@@ -6,6 +6,7 @@
 package Mundo;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que permite la cracion del arbol binario
@@ -41,7 +42,9 @@ public class ArbolBinario {
      */
     public void agregarNodoArtista(Artista artista) {
         NodoArtista nodo = new NodoArtista(artista);
-        if (raiz == null) {
+        if (buscarNodo(nodo.getArtista().getNombre()) != null) {
+            JOptionPane.showMessageDialog(null, "No se puede almacenar almacenar artistas con el mismo nombre.");
+        } else if (raiz == null) {
             raiz = nodo;
             artistas.add(artista);
         } else {
@@ -95,23 +98,28 @@ public class ArbolBinario {
 
     /**
      * Metodo para buscar un nodo en el arbol
+     *
      * @param nombre
-     * @return 
+     * @return
      */
     public NodoArtista buscarNodo(String nombre) {
-        NodoArtista aux = raiz;
-        while (!aux.getArtista().getNombre().equals(nombre)) {
-            int comparacion = nombre.compareTo(raiz.getArtista().getNombre());
-            if (comparacion < 0) {
-                aux = aux.getIzquierdo();
-            } else {
-                aux = aux.getDerecho();
+        if (estaVacio()) {
+            return null;
+        } else {
+            NodoArtista aux = raiz;
+            while (!aux.getArtista().getNombre().equals(nombre)) {
+                int comparacion = nombre.compareTo(raiz.getArtista().getNombre());
+                if (comparacion < 0) {
+                    aux = aux.getIzquierdo();
+                } else {
+                    aux = aux.getDerecho();
+                }
+                if (aux == null) {
+                    return null;
+                }
             }
-            if (aux == null) {
-                return null;
-            }
+            return aux;
         }
-        return aux;
     }
 
     /**
