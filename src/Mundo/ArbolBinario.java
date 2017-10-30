@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Clase que permite la cracion del arbol binario
+ *
  * @author German
  */
 public class ArbolBinario {
@@ -90,6 +91,27 @@ public class ArbolBinario {
             System.out.println(raiz.getArtista().getNombre());
             recorrerArbol(raiz.getDerecho());
         }
+    }
+
+    /**
+     * Metodo para buscar un nodo en el arbol
+     * @param nombre
+     * @return 
+     */
+    public NodoArtista buscarNodo(String nombre) {
+        NodoArtista aux = raiz;
+        while (!aux.getArtista().getNombre().equals(nombre)) {
+            int comparacion = nombre.compareTo(raiz.getArtista().getNombre());
+            if (comparacion < 0) {
+                aux = aux.getIzquierdo();
+            } else {
+                aux = aux.getDerecho();
+            }
+            if (aux == null) {
+                return null;
+            }
+        }
+        return aux;
     }
 
     /**

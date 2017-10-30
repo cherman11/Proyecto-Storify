@@ -6,13 +6,19 @@
 package Interfaz;
 
 import Mundo.ArbolBinario;
+import Mundo.Artista;
+import Mundo.Cancion;
 import Mundo.ListaCancion;
+import Mundo.NodoArtista;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.midi.Soundbank;
 import javax.swing.JFileChooser;
 
 /**
@@ -143,9 +149,9 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSeleccionar)
                     .addComponent(btnRegresar)
@@ -200,10 +206,49 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //final String nomFile = "src/archivos/Lista_1.txt";
+        Scanner entrada = null;
+        boolean artista = false;
+        boolean cancion = false;
+
+        try {
+            entrada = new Scanner(new FileReader(archivo));
+            while (entrada.hasNext()) {
+                String linea = entrada.nextLine();
+                if (linea.equals("#Artistas")) {
+                    artista = true;
+                    cancion=false;
+                    linea = entrada.nextLine();
+                } else if (linea.equals("#Canciones")) {
+                    cancion = true;
+                    artista=false;
+                    linea = entrada.nextLine();
+                }
+                if (artista) {
+                    
+                    String[] arregloArtista = linea.split(";");
+                    System.out.println(arregloArtista[0]);
+                    Artista artistaNuevo = new Artista(Integer.parseInt(arregloArtista[0]), arregloArtista[1], arregloArtista[2], Boolean.parseBoolean(arregloArtista[3]));
+                    arbol.agregarNodoArtista(artistaNuevo);
+                } else if (cancion) {
+                   
+                    String[] arregloCancion = linea.split(";");                    
+                    NodoArtista artistaNodo = arbol.buscarNodo(arregloCancion[0]);                    
+                    Artista artistaNuevo= artistaNodo.getArtista();
+                    Cancion cancionNueva = new Cancion(artistaNuevo, arregloCancion[1], arregloCancion[2], arregloCancion[3], arregloCancion[4],
+                            arregloCancion[5], Integer.parseInt(arregloCancion[6]), Integer.parseInt(arregloCancion[7])); 
+                    listaCanciones.agregarFinal(cancionNueva);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Interfaz_cargarInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         for (int i = 0; i < informacion.length(); i++) {
-            if (informacion.charAt(i)=='#'&&informacion.charAt(i+1)=='A') {
+            if (informacion.charAt(i) == '#' && informacion.charAt(i + 1) == 'A') {
+
                 System.out.println("Cargando artistas");
-            }else if(informacion.charAt(i)=='#'&&informacion.charAt(i+1)=='C'){
+            } else if (informacion.charAt(i) == '#' && informacion.charAt(i + 1) == 'C') {
                 System.out.println("Cargando Canciones");
             }
         }

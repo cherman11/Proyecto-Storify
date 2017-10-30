@@ -287,6 +287,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Completar Todos los  campos");
         } else {
             Artista artista = arbol.getArtistas().get(cboArtista.getSelectedIndex() - 1);
+            System.out.println(artista.getCodigo()+" Artista del arbol");
             String nombre = txtnombre.getText();
             String album = txtalbum.getText();
             String duracion = txtduracion.getText();
