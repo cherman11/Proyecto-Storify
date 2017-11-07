@@ -6,6 +6,13 @@
 package Interfaz;
 
 import Mundo.*;
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.TreeMap;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -78,6 +85,11 @@ public class Interfaz_admin extends javax.swing.JFrame {
         });
 
         btnConsultas.setText("Realizar Consultas");
+        btnConsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelOpcionesLayout = new javax.swing.GroupLayout(PanelOpciones);
         PanelOpciones.setLayout(PanelOpcionesLayout);
@@ -168,10 +180,64 @@ public class Interfaz_admin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-      Interfaz_cargarInfo cargar = new Interfaz_cargarInfo(this,arbol,listaCanciones);
-      this.setVisible(false);
-      cargar.setVisible(true);
+        Interfaz_cargarInfo cargar = new Interfaz_cargarInfo(this, arbol, listaCanciones);
+        this.setVisible(false);
+        cargar.setVisible(true);
     }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
+        //Rock, Pop, Punk, Reggaeton, Electrónica        
+        String dato = "";
+        LinkedList<generoPopular> generopopular = new LinkedList<>();
+        int rock = 0, pop = 0, punk = 0, regge = 0, electro = 0;
+        for (int i = 0; i < listaCanciones.getTamano(); i++) {
+            String genero = listaCanciones.obtener(i).getGenero();
+            switch (genero) {
+                case "Rock":
+                    rock++;
+                    break;
+                case "Pop":
+                    pop++;
+                    break;
+                case "Punk":
+                    punk++;
+                    break;
+                case "Reggaeton":
+                    regge++;
+                    break;
+                case "Electrónica":
+                    electro++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (listaCanciones.getTamano()>0) {
+            generopopular.add(new generoPopular("Rock", rock));
+            generopopular.add(new generoPopular("Pop", pop));
+            generopopular.add(new generoPopular("Punk", punk));
+            generopopular.add(new generoPopular("Reggaeton", regge));
+            generopopular.add(new generoPopular("Electrónica", electro));
+        }
+
+        //no funciona probar debug
+        if (!generopopular.isEmpty()) {
+            generoPopular genero = generopopular.getFirst();
+            dato=genero.getGenero();
+            for (int i = 0; i < generopopular.size(); i++) {
+                int valor = generopopular.get(i).getValor();
+                if(valor>genero.getValor()){
+                   dato= generopopular.get(i).getGenero();
+                }                
+            }
+            JOptionPane.showMessageDialog(null, "El genero mas popular en la tienda es: " + dato);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay canciones registradas");
+        }
+
+
+    }//GEN-LAST:event_btnConsultasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
