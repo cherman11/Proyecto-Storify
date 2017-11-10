@@ -5,6 +5,7 @@
  */
 package Interfaz;
 
+import Mundo.*;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -18,9 +19,11 @@ public class Interfaz_registroUsuario extends javax.swing.JFrame {
      * Creates new form Interfaz_registroUsuario
      *
      */
+    ListaUsuarios usuarios;
+    Registro registrar=new Registro();
     public Interfaz_registroUsuario() {
         initComponents();
-        
+        usuarios=registrar.getUsuarios();
         setLocationRelativeTo(this);
     }
 
@@ -172,11 +175,13 @@ public class Interfaz_registroUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        int estadoPassword=0,estadodatos=0;//registro inseguro
         if (txtuser.getText().equals("") || txtcorreo.getText().equals("") || pwd1.getText().equals("") || pwd2.getText().equals("")) {
             txtuser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtcorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             pwd1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             pwd2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            estadodatos=1;
             JOptionPane.showMessageDialog(this, "Completar Todos los  campos");
         }
 
@@ -184,6 +189,19 @@ public class Interfaz_registroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Contraseñas ingresadas no coinciden");
             pwd1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             pwd2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            estadoPassword=1;
+            pwd1.setText("");
+            pwd2.setText("");
+        }
+        if(estadoPassword==0 && estadodatos==0){
+            System.out.println("registrando..");
+            usuarios.addUsuario(txtuser.getText(),pwd1.getText(),txtcorreo.getText());
+            JOptionPane.showMessageDialog(null, "registro Realizado con exito");
+            txtuser.setText("");
+            txtcorreo.setText("");
+            pwd1.setText("");
+            pwd2.setText("");
+            registrar.actualizarUsuarios(usuarios);
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 

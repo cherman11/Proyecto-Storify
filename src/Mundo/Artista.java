@@ -27,17 +27,13 @@ public class Artista implements Serializable {
      * @param nombre
      * @param nacionalidad
      * @param grupo
-     * @param canciones
      */
-    public Artista(int codigo, String nombre, String nacionalidad, boolean grupo, int canciones) {
+    public Artista(int codigo, String nombre, String nacionalidad, boolean grupo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.grupo = grupo;
-        this.canciones=canciones;
     }
-
-    
 
     public int getCodigo() {
         return codigo;
@@ -70,6 +66,7 @@ public class Artista implements Serializable {
     public void setGrupo(boolean grupo) {
         this.grupo = grupo;
     }
+
     public int getCanciones() {
         return canciones;
     }
@@ -79,11 +76,11 @@ public class Artista implements Serializable {
     }
 
     public Artista compareTo(Artista a) {
-        Artista artista=null;
+        Artista artista = null;
         if (canciones < a.getCanciones()) {
             artista = a;
         }
         return a;
-    } 
+    }
 
 }

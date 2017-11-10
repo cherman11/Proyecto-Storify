@@ -5,6 +5,24 @@
  */
 package Interfaz;
 
+import Mundo.ArbolBinario;
+import Mundo.Artista;
+import Mundo.Cancion;
+import Mundo.InterfazYoutube;
+import Mundo.ListaCancion;
+import Mundo.ListaUsuarios;
+import Mundo.NodoArtista;
+import Mundo.NodoCancion;
+import Mundo.Usuario;
+import Mundo.Registro;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author German
@@ -14,10 +32,39 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz_usuario
      */
-    public Interfaz_usuario(String usuario) {
+    Registro registrar = new Registro();
+    //--------------------------------
+    //selecion de cada fila de todo tabla
+    String nombreArtista;
+    String nombreC;
+    String album;
+    String genero;
+    //---------------------------------
+    boolean busquedaEstado = true;
+    ListaCancion listauser = new ListaCancion();
+    Cancion cancionDeshacer = null;
+    int userOno = 0,tipoLista=0;//por defecto del usuario sus canciones
+    Cancion cancionRehacer = null;//ctrly
+    Cancion rehacerDeshizo = null;//ctrlz
+    TableRowSorter<TableModel> tr;
+    TableRowSorter<TableModel> tr1;
+    TableRowSorter<TableModel> tr2;//favorito
+    String[] titulos = new String[]{"Artista", "nombreC", "Album", "Genero"};//pertenece a las tablas
+    ListaCancion listaCanciones = new ListaCancion();
+    Usuario usuario;//usuario logeado
+    ListaUsuarios usuarios;InterfazYoutube  youtube;
+     boolean  estadoBuutonPlay =true;
+    public Interfaz_usuario(String user) {
         initComponents();
         setLocationRelativeTo(this);
-        labelUser.setText(usuario);
+        usuarios=registrar.getUsuarios();
+        usuario = usuarios.getUsuario(user);
+        labelUser.setText(usuario.getUsuario());
+        listauser = usuario.getRegistroCancionesUsuario();
+        cargarCancionesAdmin();//recarga de lista canciones admin
+        cargarCancionesUsuario();//recarga de lista de canciones user
+        cargarDatosUsersFavoritas();//recarga de lista de canciones favoritas
+
     }
 
     /**
@@ -34,11 +81,16 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         labelUser = new javax.swing.JLabel();
         btnsalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        buttonPlay = new javax.swing.JButton();
         panelMusicaUsuario = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCanciones = new javax.swing.JTable();
         btneliminar = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaFavoritos = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        favorito = new javax.swing.JButton();
         panelBusar = new javax.swing.JPanel();
         btnagregarCancion = new javax.swing.JButton();
         bntbuscar = new javax.swing.JButton();
@@ -53,9 +105,6 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jcbogenero = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
         menuBar = new javax.swing.JMenuBar();
         MenuEdicion = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -81,6 +130,13 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel1.setText("BIENVENIDO:");
 
+        buttonPlay.setText("PLAY");
+        buttonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -91,19 +147,25 @@ public class Interfaz_usuario extends javax.swing.JFrame {
                     .addGroup(panelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelUser))
-                    .addComponent(btnsalir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(labelUser)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(btnsalir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonPlay)))
+                .addContainerGap())
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelUser, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addComponent(btnsalir)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnsalir)
+                    .addComponent(buttonPlay))
                 .addGap(18, 18, 18))
         );
 
@@ -112,7 +174,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 153, 153));
-        jLabel2.setText("Lista de musica favorita");
+        jLabel2.setText("Lista de canciones");
 
         tablaCanciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,43 +187,98 @@ public class Interfaz_usuario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaCanciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCancionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCanciones);
 
         btneliminar.setText("Eliminar Cancion");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+
+        tablaFavoritos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaFavoritos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaFavoritosMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tablaFavoritos);
+
+        jLabel9.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 153, 153));
+        jLabel9.setText("Favoritos");
+
+        favorito.setText("Favorito");
+        favorito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                favoritoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMusicaUsuarioLayout = new javax.swing.GroupLayout(panelMusicaUsuario);
         panelMusicaUsuario.setLayout(panelMusicaUsuarioLayout);
         panelMusicaUsuarioLayout.setHorizontalGroup(
             panelMusicaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMusicaUsuarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btneliminar))
             .addGroup(panelMusicaUsuarioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMusicaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMusicaUsuarioLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btneliminar))
+                    .addGroup(panelMusicaUsuarioLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(favorito))
                     .addGroup(panelMusicaUsuarioLayout.createSequentialGroup()
                         .addGroup(panelMusicaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelMusicaUsuarioLayout.setVerticalGroup(
             panelMusicaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMusicaUsuarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelMusicaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMusicaUsuarioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2))
+                    .addComponent(favorito))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btneliminar)
-                .addGap(12, 12, 12))
+                .addComponent(btneliminar))
         );
 
         panelBusar.setBackground(new java.awt.Color(255, 255, 255));
         panelBusar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnagregarCancion.setText("Agregar A lista favorita");
+        btnagregarCancion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnagregarCancionActionPerformed(evt);
+            }
+        });
 
         bntbuscar.setText("Buscar Musica");
         bntbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -181,15 +298,20 @@ public class Interfaz_usuario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jLabel3.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 153, 153));
         jLabel3.setText("Buscar nueva musica");
 
-        jLabel4.setText("Buscar por autor");
+        jLabel4.setText("Buscar por Artista");
 
-        jLabel5.setText("Buscar por nombre ");
+        jLabel5.setText("Buscar por nombre Cancion ");
 
         jLabel6.setText("Buscar por album ");
 
@@ -197,49 +319,42 @@ public class Interfaz_usuario extends javax.swing.JFrame {
 
         jcbogenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Rock", "Pop", "Punk", "Reggaeton", "Electrónica" }));
 
-        jRadioButton1.setText("Buscar solo por autor");
-
-        jRadioButton2.setText("Buscar  con al menos1 atributo");
-
-        jRadioButton3.setText("Buscar con todos los atributos");
-
         javax.swing.GroupLayout panelBusarLayout = new javax.swing.GroupLayout(panelBusar);
         panelBusar.setLayout(panelBusarLayout);
         panelBusarLayout.setHorizontalGroup(
             panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBusarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bntbuscar)
-                    .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelBusarLayout.createSequentialGroup()
-                            .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBusarLayout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(66, 66, 66))
-                                .addGroup(panelBusarLayout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addGap(63, 63, 63)))
-                            .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtAutor2)
-                                .addComponent(jcbogenero, 0, 329, Short.MAX_VALUE)))
-                        .addComponent(jLabel3)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jRadioButton1)
-                        .addGroup(panelBusarLayout.createSequentialGroup()
-                            .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4))
-                            .addGap(58, 58, 58)
-                            .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtAutor1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelBusarLayout.createSequentialGroup()
-                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jRadioButton3)))
-                    .addComponent(btnagregarCancion))
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBusarLayout.createSequentialGroup()
+                        .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBusarLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(66, 66, 66))
+                            .addGroup(panelBusarLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(63, 63, 63)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jcbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelBusarLayout.createSequentialGroup()
+                        .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(panelBusarLayout.createSequentialGroup()
+                                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addGap(58, 58, 58)
+                                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAutor1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAutor2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelBusarLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(bntbuscar)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnagregarCancion))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelBusarLayout.setVerticalGroup(
             panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,36 +370,40 @@ public class Interfaz_usuario extends javax.swing.JFrame {
                     .addComponent(txtAutor1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAutor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(8, 8, 8)
+                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtAutor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jcbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelBusarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
-                .addGap(2, 2, 2)
+                .addGap(12, 12, 12)
                 .addComponent(bntbuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnagregarCancion)
-                .addGap(77, 77, 77))
+                .addGap(45, 45, 45))
         );
 
         MenuEdicion.setText("Editar");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Deshacer");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         MenuEdicion.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Rehacer");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         MenuEdicion.add(jMenuItem2);
 
         menuBar.add(MenuEdicion);
@@ -309,12 +428,12 @@ public class Interfaz_usuario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelBusar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(panelBusar, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelMusicaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(40, 40, 40))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -322,15 +441,381 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntbuscarActionPerformed
-        panelBusar.setVisible(true);
-    }//GEN-LAST:event_bntbuscarActionPerformed
 
+        if (busquedaEstado) {
+            String nombreArtistas = txtAutor.getText();
+            String nombreAutorLetra = txtAutor1.getText();
+            String nombreAlbum = txtAutor2.getText();
+            String nombreGenero = jcbogenero.getSelectedItem() + "";
+            if (!nombreArtistas.isEmpty() && nombreAutorLetra.isEmpty() && nombreAlbum.isEmpty() && nombreGenero.equals("Seleccione")) {
+                //dado el nombre de un Artista debe retornar su lista de canciones
+                listaCanciones = getObtenerBusquedaPorNombreArtista(nombreArtistas);
+            } else {
+                if (!nombreArtistas.isEmpty() && !nombreAutorLetra.isEmpty() && !nombreAlbum.isEmpty() && !nombreGenero.isEmpty()) {
+                    //todos atributos que coincidan
+                    getObtenerBusquedaTodos(nombreArtistas, nombreAutorLetra, nombreAlbum, nombreGenero);
+
+                } else {
+                    if (!nombreArtistas.isEmpty() || !nombreAutorLetra.isEmpty() || !nombreAlbum.isEmpty() || !nombreGenero.isEmpty()) {
+                        //algunos atributos que coincidan
+                    getObtenerBusquedaPorAlgunos(nombreArtistas, nombreAutorLetra,nombreAlbum, nombreGenero);
+                    }
+                }
+            }
+            //cambiar el modo del boton buscar a dejar de buscar para volver a buscar
+            cargarLoqueBusque(listaCanciones);
+            bntbuscar.setText("dejar de buscar");
+            busquedaEstado = false;
+        } else {
+            busquedaEstado = true;
+            bntbuscar.setText("Buscar Musica");
+            cargarCancionesAdmin();
+        }
+    }//GEN-LAST:event_bntbuscarActionPerformed
+    private void getObtenerBusquedaTodos(String nombreArtista, String nombreAutorLetra, String nombreAlbum, String nombreGenero) {
+        //hilo izquierdo
+        hiloIzquierdo buscar=new hiloIzquierdo(nombreArtista,nombreAutorLetra,nombreAlbum,nombreGenero);
+        buscar.start();
+    }
+
+    private void  getObtenerBusquedaPorAlgunos(String nombreArtista, String nombreAutorLetra, String nombreAlbum, String nombreGenero) {
+        //hilo derecho
+        hiloDerecho buscar=new hiloDerecho(nombreArtista,nombreAutorLetra,nombreAlbum,nombreGenero);
+        buscar.start();
+    }
+
+    private Artista getArtista(String nombre) {//obtiene un artista respecto a su nombre
+        ArbolBinario ListaArtistas = registrar.getRegistroArtistas();
+        ArrayList<Artista> lista = ListaArtistas.getArtistas();
+        Artista encontroArtista = null;
+        for (int i = 0; i < lista.size(); i++) {
+            if (nombre.equals(lista.get(i).getNombre())) {
+                encontroArtista = lista.get(i);
+                break;
+            }
+        }
+        return encontroArtista;
+    }
+
+    private ListaCancion getObtenerBusquedaPorNombreArtista(String nombreArtista) {
+        //la primera busqueda solo por artista
+        ListaCancion salida = new ListaCancion();
+        Artista encontroArtista = getArtista(nombreArtista);
+        if (encontroArtista != null) {
+            ListaCancion adminLista = registrar.getRegistroListacancionesAdmin();
+            NodoCancion aux = adminLista.getPrimero();
+            while (aux != null) {
+                if (aux.getDato().getArtista().getNombre().equals(nombreArtista)) {
+                    salida.agregarFinal(aux.getDato());
+                    aux = aux.getSiguiente();
+                } else {
+                    aux = aux.getSiguiente();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "no hay artista con ese nombre");
+        }
+        return salida;
+    }
+
+    private void FuncionOrdernarTablero(TableRowSorter<TableModel> sort, JTable tablero, JScrollPane scrol, String[][] objeto) {
+        //le da la opcion de ordenamiento de filas sin cambiar de columnas
+        tablero.setModel(new DefaultTableModel(objeto, titulos));
+        sort = new TableRowSorter<>(tablero.getModel());
+        tablero.setRowSorter(sort);
+        scrol.setViewportView(tablero);
+    }
+
+    private void cargarLoqueBusque(ListaCancion lista) {
+        //carga toda lista de cancion que halla buscado
+        ListaCancion listaAdmi = lista;
+        NodoCancion aux = listaAdmi.getPrimero();
+        ArrayList<String> listaGetListaCancion = new ArrayList<>();
+
+        String cadena;
+        while (aux != null) {
+            cadena = (aux.getDato().getArtista().getNombre() + ";" + aux.getDato().getNombre()
+                    + ";" + aux.getDato().getAlbum() + ";" + aux.getDato().getGenero() + ";");
+            listaGetListaCancion.add(cadena);
+            aux = aux.getSiguiente();
+        }
+        String[][] objeto = new String[listaGetListaCancion.size()][5];
+        String token[];
+        for (int i = 0; i < listaGetListaCancion.size(); i++) {
+            token = (listaGetListaCancion.get(i).split(";"));
+            objeto[i][0] = token[0];
+            objeto[i][1] = token[1];
+            objeto[i][2] = token[2];
+            objeto[i][3] = token[3];
+        }
+        FuncionOrdernarTablero(tr1, jTable1, jScrollPane2, objeto);//recarga de Tablero
+    }
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         Interfaz_login login = new Interfaz_login();
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnsalirActionPerformed
 
+    private void btnagregarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarCancionActionPerformed
+        //agrega canciones a mis canciones
+        Artista arista = null;
+        String genero1 = "";
+        String url = "";
+        int codigo = 0;
+        int anio = 0;
+        String duracion = "";
+        String albumA = "";
+        ListaCancion listaAdmi = registrar.getRegistroListacancionesAdmin();
+        NodoCancion aux = listaAdmi.getPrimero();
+        while (aux != null) {
+            if (aux.getDato().getArtista().getNombre().equals(nombreArtista) && aux.getDato().getNombre().equals(nombreC)
+                    && aux.getDato().getAlbum().equals(album) && aux.getDato().getGenero().equals(genero)) {
+                albumA = aux.getDato().getAlbum();
+                arista = aux.getDato().getArtista();
+                genero1 = aux.getDato().getGenero();
+                url = aux.getDato().getUrl();
+                anio = aux.getDato().getAño();
+                codigo = aux.getDato().getCodigo();
+                duracion = aux.getDato().getDuracion();
+                aux = null;
+            } else {
+                aux = aux.getSiguiente();
+            }
+        }
+        if (arista != null) {
+            Cancion cancion = new Cancion(arista, nombreC, albumA, duracion, genero1, url, codigo, anio);
+            listauser.agregarFinal(cancion);
+            cancionDeshacer = cancion;//para guardar deshacer
+            userOno = 2;//eliminar reahacer
+            usuario.RegistrarListaCancion(listauser);
+            registrar.actualizarUsuarios(usuarios);
+            cargarCancionesUsuario();
+        } else {
+            JOptionPane.showMessageDialog(null, "seleccione una fila para agregar a favoritos");
+        }
+    }//GEN-LAST:event_btnagregarCancionActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int index = jTable1.getSelectedRow();
+        TableModel selector = jTable1.getModel();
+        nombreArtista = selector.getValueAt(index, 0).toString();
+        nombreC = selector.getValueAt(index, 1).toString();
+        album = selector.getValueAt(index, 2).toString();
+        genero = selector.getValueAt(index, 3).toString();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        //elimina una cancion  ala vez 
+        Artista arista = null;
+        String genero1 = "";
+        String url = "";
+        int codigo = 0;
+        int anio = 0;
+        String duracion = "";
+        String albumA = "";
+        ListaCancion listaUser=null ;NodoCancion aux=null;
+        if(tipoLista==0){
+         listaUser = usuario.getRegistroCancionesUsuario();
+         aux= listaUser.getPrimero();
+        }
+        else{
+            if(tipoLista==1){
+                listaUser = usuario.getRegistroCancionesFavoritas();
+                aux= listaUser.getPrimero();
+            }
+        }
+        
+        //validacion de la cancion si exite en la lista de canciones
+        while (aux != null) {
+            if (aux.getDato().getArtista().getNombre().equals(nombreArtista) && aux.getDato().getNombre().equals(nombreC)
+                    && aux.getDato().getAlbum().equals(album) && aux.getDato().getGenero().equals(genero)) {
+                arista = aux.getDato().getArtista();
+
+                albumA = aux.getDato().getAlbum();
+                arista = aux.getDato().getArtista();
+                genero1 = aux.getDato().getGenero();
+                url = aux.getDato().getUrl();
+                anio = aux.getDato().getAño();
+                codigo = aux.getDato().getCodigo();
+                duracion = aux.getDato().getDuracion();
+                aux = null;
+            } else {
+                aux = aux.getSiguiente();
+            }
+        }
+        if (arista != null) {//crea la cancion para poder eliminar de la lista
+            Cancion cancion = new Cancion(arista, nombreC, albumA, duracion, genero1, url, codigo, anio);
+            cancionDeshacer = cancion;//para guardar deshacer
+            if(tipoLista==0){//elimina de lista de canciones usuario
+                userOno = 1;//agregar de nuevo
+            listaUser.eliminar(cancion);
+            listauser = listaUser;
+            usuario.RegistrarListaCancion(listaUser);
+            registrar.actualizarUsuarios(usuarios);
+            cargarCancionesUsuario();
+            }
+            else{
+            if(tipoLista==1){//elimina lista de canciones de favoritos
+                userOno=2;
+                listaUser.eliminar(cancion);
+                usuario.RegistrarListaCancionFavorita(listaUser);
+                registrar.actualizarUsuarios(usuarios);
+                cargarDatosUsersFavoritas();
+            }
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "seleccione una fila para eliminar");
+        }
+    }//GEN-LAST:event_btneliminarActionPerformed
+
+    private void tablaCancionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCancionesMouseClicked
+        //ase la seleccion de fila completa de una determinada tabla
+        int index = tablaCanciones.getSelectedRow();
+        TableModel selector = tablaCanciones.getModel();
+        nombreArtista = selector.getValueAt(index, 0).toString();
+        nombreC = selector.getValueAt(index, 1).toString();
+        album = selector.getValueAt(index, 2).toString();
+        genero = selector.getValueAt(index, 3).toString();
+        tipoLista=0;
+    }//GEN-LAST:event_tablaCancionesMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //deshacer
+        if (cancionDeshacer != null) {//ctrl z
+            if (userOno == 1) {
+                listauser.agregarFinal(cancionDeshacer);
+                rehacerDeshizo = cancionDeshacer;//ctrl y
+            } else {
+                if(userOno==2){
+                    listauser.eliminar(cancionDeshacer);
+                }
+                else{
+                    ListaCancion list=usuario.getRegistroCancionesFavoritas();
+                    list.eliminar(cancionDeshacer);
+                    usuario.RegistrarListaCancionFavorita(list);
+                    cargarDatosUsersFavoritas();
+                }
+            }
+            usuario.RegistrarListaCancion(listauser);
+            registrar.actualizarUsuarios(usuarios);
+            cargarCancionesUsuario();
+        } else {
+            JOptionPane.showMessageDialog(null, "no hay nada que deshacer CTRL Z enable");
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        //rehace lo ultimo que se deshizo
+        if (rehacerDeshizo != null) {//ctrl y
+            listauser.agregarFinal(rehacerDeshizo);
+            usuario.RegistrarListaCancion(listauser);
+            registrar.actualizarUsuarios(usuarios);
+            cargarCancionesUsuario();
+        } else {
+            JOptionPane.showMessageDialog(null, "no hay nada que Rehacer CTRL Y enable");
+        }
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void buttonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlayActionPerformed
+        //reproduce un tema buscando el URL ,
+        //debe encontrar el tema para poder ver su URL
+        Artista arista = null;
+        String genero1 = "";
+        String url = "";
+        int codigo = 0;
+        int anio = 0;
+        String duracion = "";
+        String albumA = "";
+        usuarios=registrar.getUsuarios();
+        ListaCancion listaUser = usuarios.getUsuario(usuario.getUsuario()).getRegistroCancionesUsuario();
+        NodoCancion aux = listaUser.getPrimero();
+        while (aux != null) {
+            if (aux.getDato().getArtista().getNombre().equals(nombreArtista) && aux.getDato().getNombre().equals(nombreC)
+                    && aux.getDato().getAlbum().equals(album) && aux.getDato().getGenero().equals(genero)) {
+                arista = aux.getDato().getArtista();
+
+                albumA = aux.getDato().getAlbum();
+                arista = aux.getDato().getArtista();
+                genero1 = aux.getDato().getGenero();
+                url = aux.getDato().getUrl();
+                anio = aux.getDato().getAño();
+                codigo = aux.getDato().getCodigo();
+                duracion = aux.getDato().getDuracion();
+                aux = null;
+            } else {
+                aux = aux.getSiguiente();
+            }
+        }
+        if (arista != null) {//por si no existe el arista,
+            Cancion cancion = new Cancion(arista, nombreC, albumA, duracion, genero1, url, codigo, anio);
+            System.err.println("url: " + url);
+            //this.dispose();
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                //new TableSortFilter().setVisible(true);
+                youtube=new InterfazYoutube(cancion.getUrl(),usuario.getUsuario());
+                youtube.start();
+            }
+        });
+        } else {
+            JOptionPane.showMessageDialog(null, "seleccione una fila");
+        }
+        
+    }//GEN-LAST:event_buttonPlayActionPerformed
+
+    private void tablaFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFavoritosMouseClicked
+        //selecciona un fila completa de favoritos
+        int index = tablaFavoritos.getSelectedRow();
+        TableModel selector = tablaCanciones.getModel();
+        nombreArtista = selector.getValueAt(index, 0).toString();
+        nombreC = selector.getValueAt(index, 1).toString();
+        album = selector.getValueAt(index, 2).toString();
+        genero = selector.getValueAt(index, 3).toString();
+        tipoLista=1;
+    }//GEN-LAST:event_tablaFavoritosMouseClicked
+
+    private void favoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favoritoActionPerformed
+        //agrega a favoritos un tema seleccionado
+         Artista arista = null;
+        String genero1 = "";
+        String url = "";
+        int codigo = 0;
+        int anio = 0;
+        String duracion = "";
+        String albumA = "";
+        ListaCancion listaAdmi =usuario.getRegistroCancionesUsuario();
+        NodoCancion aux = listaAdmi.getPrimero();
+        while (aux != null) {
+            if (aux.getDato().getArtista().getNombre().equals(nombreArtista) && aux.getDato().getNombre().equals(nombreC)
+                    && aux.getDato().getAlbum().equals(album) && aux.getDato().getGenero().equals(genero)) {
+                albumA = aux.getDato().getAlbum();
+                arista = aux.getDato().getArtista();
+                genero1 = aux.getDato().getGenero();
+                url = aux.getDato().getUrl();
+                anio = aux.getDato().getAño();
+                codigo = aux.getDato().getCodigo();
+                duracion = aux.getDato().getDuracion();
+                aux = null;
+            } else {
+                aux = aux.getSiguiente();
+            }
+        }
+        ListaCancion modif=usuario.getRegistroCancionesFavoritas();
+        if (arista != null) {// sino se encontro o no coincide con ningun artista no hace nada
+            Cancion cancion = new Cancion(arista, nombreC, albumA, duracion, genero1, url, codigo, anio);
+            modif.agregarFinal(cancion);
+            cancionDeshacer = cancion;//para guardar deshacer
+            userOno = 3;//eliminar rehacer
+            usuario.RegistrarListaCancionFavorita(modif);
+            registrar.actualizarUsuarios(usuarios);
+            cargarDatosUsersFavoritas();
+        } else {
+            JOptionPane.showMessageDialog(null, "seleccione una fila para agregar a favoritos");
+        }
+    }//GEN-LAST:event_favoritoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuEdicion;
@@ -338,6 +823,8 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     private javax.swing.JButton btnagregarCancion;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnsalir;
+    private javax.swing.JButton buttonPlay;
+    private javax.swing.JButton favorito;
     private javax.swing.ButtonGroup grupobuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -346,13 +833,12 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> jcbogenero;
     private javax.swing.JLabel labelUser;
@@ -361,8 +847,165 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     private javax.swing.JPanel panelBusar;
     private javax.swing.JPanel panelMusicaUsuario;
     private javax.swing.JTable tablaCanciones;
+    private javax.swing.JTable tablaFavoritos;
     private javax.swing.JTextField txtAutor;
     private javax.swing.JTextField txtAutor1;
     private javax.swing.JTextField txtAutor2;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarCancionesAdmin() {
+        //recarga de la tabla admin por si hay cambios
+        ListaCancion listaAdmi = registrar.getRegistroListacancionesAdmin();
+        NodoCancion aux = listaAdmi.getPrimero();
+        ArrayList<String> listaGetListaCancion = new ArrayList<>();
+        String cadena;
+        while (aux != null) {
+            cadena = (aux.getDato().getArtista().getNombre() + ";" + aux.getDato().getNombre()
+                    + ";" + aux.getDato().getAlbum() + ";" + aux.getDato().getGenero() + ";");
+            listaGetListaCancion.add(cadena);
+            aux = aux.getSiguiente();
+        }
+        String[][] objeto = new String[listaGetListaCancion.size()][5];
+        String token[];
+        for (int i = 0; i < listaGetListaCancion.size(); i++) {
+            token = (listaGetListaCancion.get(i).split(";"));
+            objeto[i][0] = token[0];
+            objeto[i][1] = token[1];
+            objeto[i][2] = token[2];
+            objeto[i][3] = token[3];
+        }
+        FuncionOrdernarTablero(tr1, jTable1, jScrollPane2, objeto);//admin
+    }
+
+    private void cargarCancionesUsuario() {
+        //recarga de la tabla canciones user por si hay cambios
+        NodoCancion aux = listauser.getPrimero();
+        ArrayList<String> listaGetListaCancion = new ArrayList<>();
+        String cadena;
+        while (aux != null) {
+            cadena = (aux.getDato().getArtista().getNombre() + ";" + aux.getDato().getNombre()
+                    + ";" + aux.getDato().getAlbum() + ";" + aux.getDato().getGenero() + ";");
+            listaGetListaCancion.add(cadena);
+            aux = aux.getSiguiente();
+        }
+        String[][] objeto = new String[listaGetListaCancion.size()][5];
+        String token[];
+        for (int i = 0; i < listaGetListaCancion.size(); i++) {
+            token = (listaGetListaCancion.get(i).split(";"));
+            objeto[i][0] = token[0];
+            objeto[i][1] = token[1];
+            objeto[i][2] = token[2];
+            objeto[i][3] = token[3];
+        }
+        FuncionOrdernarTablero(tr, tablaCanciones, jScrollPane1, objeto);//user
+    }
+    private void cargarDatosUsersFavoritas() {
+        //recarga  de favoritos por si hay cambios
+        NodoCancion aux =usuario.getRegistroCancionesFavoritas().getPrimero();
+        ArrayList<String> listaGetListaCancion = new ArrayList<>();
+        String cadena;
+        while (aux != null) {
+            cadena = (aux.getDato().getArtista().getNombre() + ";" + aux.getDato().getNombre()
+                    + ";" + aux.getDato().getAlbum() + ";" + aux.getDato().getGenero() + ";");
+            listaGetListaCancion.add(cadena);
+            aux = aux.getSiguiente();
+        }
+        String[][] objeto = new String[listaGetListaCancion.size()][5];
+        String token[];
+        for (int i = 0; i < listaGetListaCancion.size(); i++) {
+            token = (listaGetListaCancion.get(i).split(";"));
+            objeto[i][0] = token[0];
+            objeto[i][1] = token[1];
+            objeto[i][2] = token[2];
+            objeto[i][3] = token[3];
+        }
+        FuncionOrdernarTablero(tr2, tablaFavoritos, jScrollPane4, objeto);//userfavorito
+    }
+    public class hiloDerecho extends Thread {
+        private final String nombreArtista,nombreAutorLetra, nombreAlbum,nombreGenero;
+        public hiloDerecho(String nombreArtista,String nombreAutorLetra,String nombreAlbum,String nombreGenero) {
+            this.nombreArtista=nombreArtista;
+            this.nombreAutorLetra=nombreAutorLetra;
+            this.nombreAlbum=nombreAlbum;
+            this.nombreGenero=nombreGenero;
+        }
+
+        @Override
+        public void run() {
+            ListaCancion salida = new ListaCancion();
+        ArbolBinario ListaArtistas = registrar.getRegistroArtistas();
+        Artista artista = getArtista(nombreArtista);
+        NodoArtista aux = ListaArtistas.getRaiz();
+        boolean encontro = false;
+        if (artista != null) {
+            while (aux != null) {//busqueda por la derecha
+                if (aux.getArtista().getNombre().equals(artista.getNombre())) {
+                    aux = null;
+                    encontro = true;
+                } else {
+                    aux = aux.getDerecho();//busca por el lado derecho del arbol
+                }
+            }
+        }
+        ListaCancion adminLista = registrar.getRegistroListacancionesAdmin();
+        NodoCancion aux2 = adminLista.getPrimero();
+        while (aux2 != null) {
+            if (aux2.getDato().getArtista().getNombre().equals(nombreArtista) || aux2.getDato().getNombre().equals(nombreAutorLetra) || aux2.getDato().getAlbum().equals(nombreAlbum)
+                    || aux2.getDato().getGenero().equals(nombreGenero)) {
+                salida.agregarFinal(aux2.getDato());
+                aux2 = aux2.getSiguiente();
+            } else {
+                aux2 = aux2.getSiguiente();
+            }
+        }
+        if (salida.estaVacia()) {
+            JOptionPane.showMessageDialog(null, "no hay cancion con tales descripciones");
+        }
+        listaCanciones=salida;
+        }
+    }
+    public class hiloIzquierdo extends Thread {
+        private final String nombreArtista,nombreAutorLetra, nombreAlbum,nombreGenero;
+        public hiloIzquierdo(String nombreArtista,String nombreAutorLetra,String nombreAlbum,String nombreGenero) {
+            this.nombreArtista=nombreArtista;
+            this.nombreAutorLetra=nombreAutorLetra;
+            this.nombreAlbum=nombreAlbum;
+            this.nombreGenero=nombreGenero;
+        }
+
+        @Override
+        public void run() {
+            ListaCancion salida = new ListaCancion();
+        ArbolBinario ListaArtistas = registrar.getRegistroArtistas();
+        Artista artista = getArtista(nombreArtista);
+        NodoArtista aux = ListaArtistas.getRaiz();
+        boolean encontro = false;
+        if (artista != null) {
+            while (aux != null) {//busqueda por la izquierda
+                if (aux.getArtista().getNombre().equals(artista.getNombre())) {
+                    aux = null;
+                    encontro = true;
+                } else {
+                    aux = aux.getIzquierdo();//busca por el lado izquierdo del arbol
+                }
+            }
+            ListaCancion adminLista = registrar.getRegistroListacancionesAdmin();
+            NodoCancion aux2 = adminLista.getPrimero();
+            while (aux2 != null) {
+                if (aux2.getDato().getArtista().getNombre().equals(artista.getNombre())
+                        && aux2.getDato().getNombre().equals(nombreAutorLetra)
+                        && aux2.getDato().getAlbum().equals(nombreAlbum)
+                        && aux2.getDato().getGenero().equals(nombreGenero)) {
+                    salida.agregarFinal(aux2.getDato());
+                    aux2 = aux2.getSiguiente();
+                } else {
+                    aux2 = aux2.getSiguiente();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "no hay artista con ese nombre");
+        }
+        listaCanciones=salida;
+        }
+    }
 }

@@ -5,11 +5,13 @@
  */
 package Mundo;
 
+import java.io.Serializable;
+
 /**
  * Clase que permite crear un Nodo para el arbol binario, este nodo es de tipo artista
  * @author German
  */
-public class NodoArtista {
+public class NodoArtista implements Serializable{
 
     public Artista artista;
     public NodoArtista izquierdo;

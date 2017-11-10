@@ -7,6 +7,7 @@ package Mundo;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que permite crear la lista de canciones
@@ -50,8 +51,13 @@ public class ListaCancion  implements Serializable ,Iterable<Cancion> {
      *
      * @param dato
      */
-    public void agregarFinal(Cancion dato) {
-        NodoCancion nodo = new NodoCancion(dato);
+    public boolean agregarFinal(Cancion dato) {
+        if(existe(dato)){
+            JOptionPane.showMessageDialog(null,"No se pueden agregar  canciones repetidas");
+            return false;
+            
+        }else{
+            NodoCancion nodo = new NodoCancion(dato);
         if (estaVacia()) {
             primero = ultimo = nodo;
         } else {
@@ -59,6 +65,9 @@ public class ListaCancion  implements Serializable ,Iterable<Cancion> {
             ultimo = nodo;
         }
         tamano++;
+        }
+        return true;
+        
     }
 
     /**
@@ -165,7 +174,7 @@ public class ListaCancion  implements Serializable ,Iterable<Cancion> {
         NodoCancion aux = primero;
 
         while (aux != null) {
-            if (aux.getDato().equals(dato)) {
+            if (aux.getDato().getNombre().equals(dato.getNombre())&&aux.getDato().getArtista().getNombre().equals(dato.getArtista().getNombre())) {
                 return aux;
             }
             aux = aux.getSiguiente();

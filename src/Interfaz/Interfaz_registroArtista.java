@@ -17,18 +17,15 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
     Interfaz_login log;
     ArbolBinario arbol;
     ListaCancion listaCanciones;
-
+    Registro registrar=new Registro();
     /**
      * Creates new form Interfaz_registroAutor
-     * @param arbol
-     * @param listaCancion
-     * @param log
      */
-    public Interfaz_registroArtista(ArbolBinario arbol, ListaCancion listaCancion, Interfaz_login log) {
+    public Interfaz_registroArtista(Interfaz_login log) {
         initComponents();
         this.log= log;
-        this.arbol = arbol;
-        this.listaCanciones = listaCancion;
+        this.arbol =registrar.getRegistroArtistas();
+        this.listaCanciones = registrar.getRegistroListacancionesAdmin();
         setLocationRelativeTo(this);
         btnGrupo.add(btngruposi);
         btnGrupo.add(btngrupono);
@@ -118,7 +115,7 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
 
         btngrupono.setText("NO");
 
-        jButton1.setText("Prueba");
+        jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -188,7 +185,7 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnvolver)
                             .addComponent(btnguardar))
                         .addContainerGap(26, Short.MAX_VALUE))
@@ -239,9 +236,14 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
             if (btngruposi.isSelected()) {
                 grupo = true;
             }
-            int canciones = 0;
-            Artista artista = new Artista(codigo, nombre, nacionalidad, grupo,canciones);
+            Artista artista = new Artista(codigo, nombre, nacionalidad, grupo);
             arbol.agregarNodoArtista(artista);
+            registrar.RegistrarArtistas(arbol);
+            JOptionPane.showMessageDialog(null,"se guardo correctamente");
+            txtcodigo.setText("");
+            txtnombre.setText("");
+            txtnacionalidad.setText("");
+            
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
@@ -253,12 +255,16 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
 
     private void txtnacionalidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnacionalidadKeyPressed
         // TODO add your handling code here:
+        java.awt.event.ActionEvent e = null;
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnguardarActionPerformed(e);
+        }   
     }//GEN-LAST:event_txtnacionalidadKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.out.println(" " + arbol.cantidadNodos(0));
         if (arbol.getRaiz() != null) {
-            arbol.recorrerArbol(arbol.getRaiz());
+            arbol.imprimirHorizontal(arbol.getRaiz(),0);
         } else {
             System.out.println("Arbol is empty");
         }

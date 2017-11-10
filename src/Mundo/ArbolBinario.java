@@ -74,6 +74,9 @@ public class ArbolBinario implements Serializable {
             }
         }
     }
+    public ArbolBinario getEste(){
+        return this;
+    }
 
     /**
      * Metodo para saber si un arbol esta vacio
@@ -94,6 +97,53 @@ public class ArbolBinario implements Serializable {
             recorrerArbol(raiz.getIzquierdo());
             System.out.println(raiz.getArtista().getNombre());
             recorrerArbol(raiz.getDerecho());
+        }
+    }
+    
+    /**
+     * Metodo que permite saber cuantos nodos tiene el arbol
+     *
+     * @param nivel desde la raiz, nivel = 0, siempre
+     * @return
+     */
+    public int cantidadNodos(int nivel) {
+        return cantidadNodos(this.raiz, nivel);
+    }
+    
+        /**
+     * Metodo recargado para contar nodos dentro del arbol.
+     *
+     * @param raizAux
+     * @param nivel
+     * @return
+     */
+    private int cantidadNodos(NodoArtista raizAux, int nivel) {
+        if (raizAux == null) {
+            return 0;
+        }
+        int cantNodosIzquierdo = cantidadNodos(raizAux.getIzquierdo(), nivel - 1);
+        int cantNodosDerecho = cantidadNodos(raizAux.getDerecho(), nivel - 1);
+        if (nivel <= 0) {
+            return cantNodosIzquierdo + cantNodosDerecho + 1;
+        } else {
+            return cantNodosIzquierdo + cantNodosDerecho;
+        }
+    }
+    
+    /**
+     * Metodo que permite imprimir un arbol en consola
+     *
+     * @param nodo
+     * @param nivel
+     */
+    public void imprimirHorizontal(NodoArtista nodo, int nivel) {
+        if (nodo != null) {
+            imprimirHorizontal(nodo.getDerecho(), nivel + 1);
+            for (int i = 0; i < nivel; i++) {
+                System.out.print("\t");
+            }
+            System.out.println(nodo.getArtista().getNombre());
+            imprimirHorizontal(nodo.getIzquierdo(), nivel + 1);
         }
     }
 
@@ -120,36 +170,6 @@ public class ArbolBinario implements Serializable {
                 }
             }
             return aux;
-        }
-    }
-
-    /**
-     * Metodo que permite saber cuantos nodos tiene el arbol
-     *
-     * @param nivel desde la raiz, nivel = 0, siempre
-     * @return
-     */
-    public int cantidadNodos(int nivel) {
-        return cantidadNodos(this.raiz, nivel);
-    }
-
-    /**
-     * Metodo recargado para contar nodos dentro del arbol.
-     *
-     * @param raizAux
-     * @param nivel
-     * @return
-     */
-    private int cantidadNodos(NodoArtista raizAux, int nivel) {
-        if (raizAux == null) {
-            return 0;
-        }
-        int cantNodosIzquierdo = cantidadNodos(raizAux.getIzquierdo(), nivel - 1);
-        int cantNodosDerecho = cantidadNodos(raizAux.getDerecho(), nivel - 1);
-        if (nivel <= 0) {
-            return cantNodosIzquierdo + cantNodosDerecho + 1;
-        } else {
-            return cantNodosIzquierdo + cantNodosDerecho;
         }
     }
 }

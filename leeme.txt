@@ -1,0 +1,30 @@
+registro de datos = artistas
+
+listacanciones = sus temas de los artitas
+
+usuario = todos los datos que tiene un usuario(canciones nombre,etc)
+
+
+
+datos que tiene en admin
+
+cod ,artista  , nacionalidad,grupo!!! nombrecancion     , duracion   album,  caratula,  año,  genero   ,url
+1 ,Jesse Joy , mexico,       true     ecos de amor          4        oficial  chicas   2017    pop     https://www.youtube.com/watch?v=_WHGlEYaBgU
+ 1 ,Jesse Joy , mexico,       true     corre               2        oficial  chicas   2010    pop    https://www.youtube.com/watch?v=54cCE5q2NEE
+ 1 ,Jesse Joy , mexico,       true     gente de zona        3        oficial  chicas   2017    pop     https://www.youtube.com/watch?v=_WHGlEYaBgU
+ 1 ,Jesse Joy , mexico,       true   no soy una de esas      4        oficial  chicas   2017    pop     https://www.youtube.com/watch?v=DrAXmzuGgek
+ 2  ,airbag  ,  chile ,     true   ,  amor de verano       ,  3,     facade   , recuerdo, 2010 ,rock   , https://www.youtube.com/watch?v=5c5FVD1498g
+ 2  ,airbag  ,  chile ,     true   ,  esta noche          ,  5,     facade   , recuerdo,   2010 ,rock   , https://www.youtube.com/watch?v=Br-_2y1iJ6k
+ 2  ,airbag  ,  chile ,     true   ,  ella no esta        ,  3,     facade   , recuerdo,    2000 ,rock   , https://www.youtube.com/watch?v=tbIUAzMw1n0
+ 3 , karina  ,  argentina , true   ,  jamas                , 5,     mpg   ,   cumbieros  ,   2000, cumbia , https://www.youtube.com/watch?v=_SKQ_h2xfng
+ 3 , karina  ,  argentina , true   ,  con la misma moneda    , 4,     rigui   ,   cumbieros  ,2000, cumbia , https://www.youtube.com/watch?v=jzHTjfSOznk
+ 4 , ana barbara,bolivia,  false  , loca,                     2 ,   vevo    , romanticas,    1980, pop   , https://www.youtube.com/watch?v=YM0O_TNYwVk
+ 5 , selena ,mexico ,  false  ,  si una vez ,                5 , Live From Astrodome , en vivo , 1980, pop   , https://www.youtube.com/watch?v=pjDc3nK8cN4
+ 6 , david guetta  eeuu , false     ,  vivo     ,          123  ,  live Tomorrowland ,  live         2017 , electronica  https://www.youtube.com/watch?v=sSX9YlNuUpc
+ 6 , david guetta   , false     ,  Play Hard     ,      123  , Ne-Yo Akon , video oficial,    2017 , electronica.,,  https://www.youtube.com/watch?v=5dbEhBKGOtY
+
+
+datos que tiene usuariio¡¡o
+
+ user user user.com
+ edu edumon edumon.com

@@ -8,6 +8,7 @@ package Interfaz;
 import Mundo.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,6 @@ public class Interfaz_admin extends javax.swing.JFrame {
     ArbolBinario arbol;
     ListaCancion listaCanciones;
     Interfaz_login log;
-    Serializacion serial;
 
     /**
      * Metodo constructor
@@ -47,10 +47,10 @@ public class Interfaz_admin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         PanelOpciones = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        btnregistrarArtista = new javax.swing.JButton();
-        btnregistrarCancion = new javax.swing.JButton();
         btnCargar = new javax.swing.JButton();
         btnConsultas = new javax.swing.JButton();
+        btnregistrarArtista = new javax.swing.JButton();
+        btnregistrarCancion = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,20 +60,6 @@ public class Interfaz_admin extends javax.swing.JFrame {
         PanelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setText("Panel de Opciones");
-
-        btnregistrarArtista.setText("registrar Artista");
-        btnregistrarArtista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnregistrarArtistaActionPerformed(evt);
-            }
-        });
-
-        btnregistrarCancion.setText("registrar Cancion");
-        btnregistrarCancion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnregistrarCancionActionPerformed(evt);
-            }
-        });
 
         btnCargar.setText("Cargar Informacion");
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,21 +75,35 @@ public class Interfaz_admin extends javax.swing.JFrame {
             }
         });
 
+        btnregistrarArtista.setText("registrar Artista");
+        btnregistrarArtista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregistrarArtistaActionPerformed(evt);
+            }
+        });
+
+        btnregistrarCancion.setText("registrar Cancion");
+        btnregistrarCancion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregistrarCancionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelOpcionesLayout = new javax.swing.GroupLayout(PanelOpciones);
         PanelOpciones.setLayout(PanelOpcionesLayout);
         PanelOpcionesLayout.setHorizontalGroup(
             PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelOpcionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnregistrarCancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnregistrarArtista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(55, 55, 55)
+                    .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnregistrarCancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnregistrarArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCargar)
-                    .addComponent(btnConsultas))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(btnConsultas)))
         );
         PanelOpcionesLayout.setVerticalGroup(
             PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,14 +114,11 @@ public class Interfaz_admin extends javax.swing.JFrame {
                 .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnregistrarArtista)
                     .addComponent(btnCargar))
-                .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelOpcionesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnregistrarCancion))
-                    .addGroup(PanelOpcionesLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(btnConsultas)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnregistrarCancion)
+                    .addComponent(btnConsultas))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         btnsalir.setText("Salir");
@@ -137,12 +134,14 @@ public class Interfaz_admin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PanelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btnsalir)
-                        .addComponent(PanelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(170, 170, 170))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,31 +152,15 @@ public class Interfaz_admin extends javax.swing.JFrame {
                 .addComponent(PanelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnsalir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
-        Interfaz_registroArtista autor = new Interfaz_registroArtista(arbol, listaCanciones, log);
-        autor.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnregistrarArtistaActionPerformed
-
-    private void btnregistrarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarCancionActionPerformed
-        Interfaz_registarCancion cancion = new Interfaz_registarCancion(arbol, listaCanciones, log);
-        cancion.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnregistrarCancionActionPerformed
-
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-        log.setVisible(true);
+        log.setVisible(true);        
         this.dispose();
-        ArrayList<Artista> artista = arbol.getArtistas();
-        serial.cargarArtistas(artista);
-        serial.escribirCanciones(listaCanciones);
-
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
@@ -189,7 +172,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
     private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
         //Rock, Pop, Punk, Reggaeton, Electrónica        
         String dato = "";
-        LinkedList<generoPopular> generopopular = new LinkedList<>();
+        LinkedList<GeneroPopular> generopopular = new LinkedList<>();
         int rock = 0, pop = 0, punk = 0, regge = 0, electro = 0;
         for (int i = 0; i < listaCanciones.getTamano(); i++) {
             String genero = listaCanciones.obtener(i).getGenero();
@@ -215,15 +198,15 @@ public class Interfaz_admin extends javax.swing.JFrame {
         }
 
         if (listaCanciones.getTamano() > 0) {
-            generopopular.add(new generoPopular("Rock", rock));
-            generopopular.add(new generoPopular("Pop", pop));
-            generopopular.add(new generoPopular("Punk", punk));
-            generopopular.add(new generoPopular("Reggaeton", regge));
-            generopopular.add(new generoPopular("Electrónica", electro));
+            generopopular.add(new GeneroPopular("Rock", rock));
+            generopopular.add(new GeneroPopular("Pop", pop));
+            generopopular.add(new GeneroPopular("Punk", punk));
+            generopopular.add(new GeneroPopular("Reggaeton", regge));
+            generopopular.add(new GeneroPopular("Electrónica", electro));
         }
 
         if (!generopopular.isEmpty()) {
-            generoPopular genero = generopopular.getFirst();
+            GeneroPopular genero = generopopular.getFirst();
             dato = genero.getGenero();
             for (int i = 0; i < generopopular.size(); i++) {
                 int valor = generopopular.get(i).getValor();
@@ -249,18 +232,28 @@ public class Interfaz_admin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnConsultasActionPerformed
 
-    public artistaPopular obtenerArtistaMasPopular(ListaCancion lista){
+    private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
+        Interfaz_registroArtista autor = new Interfaz_registroArtista( log);
+        autor.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnregistrarArtistaActionPerformed
+
+    private void btnregistrarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarCancionActionPerformed
+        Interfaz_registarCancion cancion = new Interfaz_registarCancion( log);
+        cancion.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnregistrarCancionActionPerformed
+
+    public ArtistaPopular obtenerArtistaMasPopular(ListaCancion lista){
         
-        ArrayList<artistaPopular> aux = new ArrayList<>();
+        ArrayList<ArtistaPopular> aux = new ArrayList<>();
         
-        for (Cancion c : lista) {
-            
-            artistaPopular art = new artistaPopular(c.getArtista().getNombre(), 0);
-            
+        for (Iterator<Cancion> it = lista.iterator(); it.hasNext();) {
+            Cancion c = it.next();
+            ArtistaPopular art = new ArtistaPopular(c.getArtista().getNombre(), 0);
             if( !existe(art, aux) ){
                 aux.add(art);
             }
-            
         }
         
         return Collections.max(aux);
@@ -268,9 +261,9 @@ public class Interfaz_admin extends javax.swing.JFrame {
         
     }
 
-    private boolean existe(artistaPopular ap, ArrayList<artistaPopular> aux ){
+    private boolean existe(ArtistaPopular ap, ArrayList<ArtistaPopular> aux ){
         for (int i = 0; i < aux.size(); i++) {
-            artistaPopular auxA = aux.get(i);
+            ArtistaPopular auxA = aux.get(i);
             if( auxA.equals( ap ) ){
                 auxA.setValor( auxA.getValor()+1 );
                 return true;

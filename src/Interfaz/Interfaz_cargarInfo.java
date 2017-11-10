@@ -9,15 +9,16 @@ import Mundo.ArbolBinario;
 import Mundo.Artista;
 import Mundo.Cancion;
 import Mundo.ListaCancion;
-import Mundo.NodoArtista;
+import Mundo.Registro;
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -35,6 +36,9 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     File archivo;
     FileOutputStream salida;
     String informacion = "";
+    Registro registrar = new Registro();
+    JFileChooser seleccionArchivo;
+    boolean archivoCargado = false;
 
     /**
      * Creates new form Interfaz_cargarInfo
@@ -49,7 +53,6 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         DialogCargar.setSize(800, 600);
         txtArea.setVisible(false);
         txtArea.setEditable(false);
-        btnSalvar.setVisible(false);
         this.admin = admin;
         this.arbol = arbol;
         this.listaCanciones = listaCanciones;
@@ -72,8 +75,6 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         txtArea = new javax.swing.JTextArea();
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
 
         fileCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +126,7 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
             }
         });
 
+        txtArea.setEditable(false);
         txtArea.setColumns(20);
         txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
@@ -143,20 +145,6 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,18 +157,13 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblSeleccionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 303, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
                                 .addComponent(btnGuardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnRegresar))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalvar)))
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -195,11 +178,7 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
                     .addComponent(btnGuardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnSalvar))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -215,6 +194,7 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         String comando = evt.getActionCommand();
         if (comando.equals(JFileChooser.APPROVE_SELECTION)) {
             archivo = selector.getSelectedFile();
+            archivoCargado = true;
         } else if (comando.equals(JFileChooser.CANCEL_SELECTION)) {
 
         }
@@ -228,7 +208,7 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if (archivo != null) {
+        if (archivo != null&&txtArea.getText().equals("")) {
             txtArea.setVisible(true);
             try {
                 FileInputStream file = new FileInputStream(archivo);
@@ -247,52 +227,64 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Scanner entrada = null;
-        boolean artista = false;
-        boolean cancion = false;
+        //si no encuentra en sector Artista va a canciones: por si uno quiere agregar canciones
+        Cancion cancion;
+        Artista atista;
+        ArrayList<Cancion> canciones = new ArrayList<>();
+        ArrayList<Artista> artistas = new ArrayList<>();
+        if (archivoCargado) {
+            try {
+                FileReader fr = new FileReader(archivo);
+                BufferedReader sc = new BufferedReader(fr);
+                String actual = sc.readLine();
+                if (actual.equals("#Artistas")) {
+                    while (true) {
+                        String linea = sc.readLine();
+                        if (linea != null && !linea.equals("#Canciones")) {
+                            String[] datosArtista = linea.split(";");
+                            boolean grupo = datosArtista[3].equals("true") ? true : false;
+                            artistas.add(new Artista(Integer.parseInt(datosArtista[0]), datosArtista[1], datosArtista[2], grupo));
 
-        try {
-            entrada = new Scanner(new FileReader(archivo));
-            while (entrada.hasNext()) {
-                String linea = entrada.nextLine();
-                if (linea.equals("#Artistas")) {
-                    artista = true;
-                    cancion = false;
-                    linea = entrada.nextLine();
-                } else if (linea.equals("#Canciones")) {
-                    cancion = true;
-                    artista = false;
-                    linea = entrada.nextLine();
+                        } else {
+                            actual = linea;
+                            break;
+                        }
+                    }
                 }
-                if (artista) {
-                    String[] arregloArtista = linea.split(";");
-                    System.out.println(arregloArtista[0]);
-                    int valor=0;
-                    Artista artistaNuevo = new Artista(Integer.parseInt(arregloArtista[0]), arregloArtista[1], arregloArtista[2], Boolean.parseBoolean(arregloArtista[3]),valor);
-                    arbol.agregarNodoArtista(artistaNuevo);
-                } else if (cancion) {
-
-                    String[] arregloCancion = linea.split(";");
-                    NodoArtista artistaNodo = arbol.buscarNodo(arregloCancion[0]);
-                    Artista artistaNuevo = artistaNodo.getArtista();
-                    Cancion cancionNueva = new Cancion(artistaNuevo, arregloCancion[1], arregloCancion[2], arregloCancion[3], arregloCancion[4],
-                            arregloCancion[5], Integer.parseInt(arregloCancion[6]), Integer.parseInt(arregloCancion[7]));
-                    listaCanciones.agregarFinal(cancionNueva);
+                if (actual.equals("#Canciones")) {
+                    while (true) {
+                        String linea = sc.readLine();
+                        if (linea != null && !linea.equals("Artistas")) {
+                            String[] datosArtista = linea.split(";");
+                            canciones.add(new Cancion(getArtista(datosArtista[0], artistas),
+                                    datosArtista[1], datosArtista[2], datosArtista[4],
+                                    datosArtista[5], datosArtista[6], getCodigo(datosArtista[0], artistas), Integer.parseInt(datosArtista[3])));
+                        } else {
+                            break;
+                        }
+                    }
                 }
-            }
-        } catch (FileNotFoundException ex) {
-             JOptionPane.showMessageDialog(this, "No se han podido guardar los datos cargados, revice los datos a almacenar.");
-            Logger.getLogger(Interfaz_cargarInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        for (int i = 0; i < informacion.length(); i++) {
-            if (informacion.charAt(i) == '#' && informacion.charAt(i + 1) == 'A') {
-                 JOptionPane.showMessageDialog(this, "Se han cargado correctamente Artistas y canciones.");
-                 informacion="";
-                 this.dispose();
-                 admin.setVisible(true);
+            } catch (FileNotFoundException ex) {
+                System.err.println("el archivo no cumple con el formato");
+            } catch (IOException ex) {
+                System.err.println("el archivo no cumple con el formato");
             }
+            
+            JOptionPane.showMessageDialog(this,"Datos cargados Correctamente");
+            this.dispose();
+            admin.setVisible(true);
         }
+        //agregando artistas a la estructura
+        for (int i = 0; i < artistas.size(); i++) {
+            arbol.agregarNodoArtista(artistas.get(i));
+        }
+        registrar.RegistrarArtistas(arbol);
+        //agregando datos a la estructura
+        for (int i = 0; i < canciones.size(); i++) {
+            listaCanciones.agregarFinal(canciones.get(i));
+        }
+        registrar.RegistrarListaCancionesAdmin(listaCanciones);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void lblSeleccionarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeleccionarMouseMoved
@@ -308,11 +300,6 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         lblSeleccionar.setForeground(Color.black);       // TODO add your handling code here:
 
     }//GEN-LAST:event_lblSeleccionarMouseExited
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        txtArea.setEditable(true);
-        btnSalvar.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
     public String guardarArchivo(File archivo, String informacion) {
         String mensaje = null;
         try {
@@ -326,20 +313,33 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
 
         return mensaje;
     }
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        informacion=txtArea.getText();
-        txtArea.setText("");
-        JOptionPane.showMessageDialog(this,guardarArchivo(archivo, informacion));
-        informacion="";            
-    }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private Artista getArtista(String nombre, ArrayList<Artista> artistas) {
+        Artista artista = null;
+        for (int i = 0; i < artistas.size(); i++) {
+            if (nombre.equals(artistas.get(i).getNombre())) {
+                artista = artistas.get(i);
+                break;
+            }
+        }
+        return artista;
+    }
+
+    private int getCodigo(String nombre, ArrayList<Artista> artistas) {
+        int codigo = -1;
+        for (int i = 0; i < artistas.size(); i++) {
+            if (nombre.equals(artistas.get(i).getNombre())) {
+                codigo = artistas.get(i).getCodigo();
+                break;
+            }
+        }
+        return codigo;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog DialogCargar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btnSalvar;
     private javax.swing.JFileChooser fileCargar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSeleccionar;

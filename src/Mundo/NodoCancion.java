@@ -5,11 +5,13 @@
  */
 package Mundo;
 
+import java.io.Serializable;
+
 /**
  *Clase que permite crear un nodo para la lista enlazada, este nodo es de tipo Cancion
  * @author German
  */
-public class NodoCancion {
+public class NodoCancion implements Serializable{
 
     private Cancion dato;
     private NodoCancion siguiente;

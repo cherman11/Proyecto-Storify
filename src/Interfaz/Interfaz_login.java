@@ -5,8 +5,7 @@
  */
 package Interfaz;
 
-import Mundo.ArbolBinario;
-import Mundo.ListaCancion;
+import Mundo.*;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -18,14 +17,16 @@ import javax.swing.JOptionPane;
 public class Interfaz_login extends javax.swing.JFrame {
 
     ArbolBinario arbol = new ArbolBinario();
-    ListaCancion listaCanciones = new ListaCancion();
-    Serializacion serial;
+    ListaCancion listaCanciones = new ListaCancion();    
+    Registro registrar = new Registro();
 
     /**
      * Creates new form Interfaz_login1
      */
     public Interfaz_login() {
         initComponents();
+        this.arbol =registrar.getRegistroArtistas();
+        this.listaCanciones = registrar.getRegistroListacancionesAdmin();
         setLocationRelativeTo(this);
     }
 
@@ -186,15 +187,16 @@ public class Interfaz_login extends javax.swing.JFrame {
             this.setVisible(false);
             this.txtUsuario.setText("");
             this.pwsUsuario.setText("");
-            arbol = serial.leerArtistas();
-            listaCanciones = serial.leerCanciones();
-        }
-
-        if (txtUsuario.getText().equals("user") && pwsUsuario.getText().equals("user")) {
-            Interfaz_usuario usuario = new Interfaz_usuario(txtUsuario.getText());
-            usuario.setVisible(true);
-            this.dispose();
-            this.setVisible(false);
+        } else {
+            boolean respuestaPeticion = registrar.getUsuarios().esUsuario(txtUsuario.getText(), pwsUsuario.getText());
+            if (respuestaPeticion) {
+                Interfaz_usuario usuario = new Interfaz_usuario(txtUsuario.getText());
+                usuario.setVisible(true);
+                this.dispose();
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no resgistrado");
+            }
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
