@@ -239,7 +239,8 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
             if (btngruposi.isSelected()) {
                 grupo = true;
             }
-            Artista artista = new Artista(codigo, nombre, nacionalidad, grupo);
+            int canciones = 0;
+            Artista artista = new Artista(codigo, nombre, nacionalidad, grupo,canciones);
             arbol.agregarNodoArtista(artista);
         }
     }//GEN-LAST:event_btnguardarActionPerformed

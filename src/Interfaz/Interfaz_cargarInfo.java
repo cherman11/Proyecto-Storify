@@ -267,7 +267,8 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
                 if (artista) {
                     String[] arregloArtista = linea.split(";");
                     System.out.println(arregloArtista[0]);
-                    Artista artistaNuevo = new Artista(Integer.parseInt(arregloArtista[0]), arregloArtista[1], arregloArtista[2], Boolean.parseBoolean(arregloArtista[3]));
+                    int valor=0;
+                    Artista artistaNuevo = new Artista(Integer.parseInt(arregloArtista[0]), arregloArtista[1], arregloArtista[2], Boolean.parseBoolean(arregloArtista[3]),valor);
                     arbol.agregarNodoArtista(artistaNuevo);
                 } else if (cancion) {
 

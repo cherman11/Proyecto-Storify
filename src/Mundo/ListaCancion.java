@@ -5,6 +5,7 @@
  */
 package Mundo;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Iterator;
  *
  * @author German
  */
-public class ListaCancion implements Iterable {
+public class ListaCancion  implements Serializable ,Iterable<Cancion> {
 
     private NodoCancion primero, ultimo;
     private int tamano;
@@ -190,7 +191,7 @@ public class ListaCancion implements Iterable {
         return new IteradorListaSimple(primero);
     }
 
-    protected class IteradorListaSimple implements Iterator {
+    protected class IteradorListaSimple<Cancion> implements Iterator<Cancion> {
 
         private NodoCancion aux;
 
@@ -205,7 +206,7 @@ public class ListaCancion implements Iterable {
 
         @Override
         public Cancion next() {
-            Cancion valor = aux.getDato();
+            Cancion valor = (Cancion) aux.getDato();
             aux = aux.getSiguiente();
             return valor;
         }

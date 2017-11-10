@@ -5,11 +5,13 @@
  */
 package Mundo;
 
+import java.io.Serializable;
+
 /**
  *Clase que permite crear una cancion
  * @author German
  */
-public class Cancion {
+public class Cancion implements Serializable {
 
     //Atributos codigo, nombre, album, caratula, año, duracion, genero, url.
     Artista artista;

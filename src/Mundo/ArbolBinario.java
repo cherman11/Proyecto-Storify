@@ -5,6 +5,7 @@
  */
 package Mundo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author German
  */
-public class ArbolBinario {
+public class ArbolBinario implements Serializable {
 
     ArrayList<Artista> artistas = new ArrayList<>();
     String[] vector;

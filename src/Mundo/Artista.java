@@ -5,33 +5,40 @@
  */
 package Mundo;
 
+import java.io.Serializable;
+
 /**
  * Clase que permite la creacion de un artista
+ *
  * @author German
  */
-public class Artista {
+public class Artista implements Serializable {
     //Atributos codigo, nombre, nacionalidad, grupo, LISTA DOBLEMENTE ENLAZADA DE CANCIONES
-    
+
     int codigo;
-    String nombre,nacionalidad;
+    String nombre, nacionalidad;
     boolean grupo;
+    int canciones;
 
     /**
      * Metodo constructor de la clase artista
+     *
      * @param codigo
      * @param nombre
      * @param nacionalidad
-     * @param grupo 
+     * @param grupo
+     * @param canciones
      */
-    public Artista(int codigo, String nombre, String nacionalidad, boolean grupo) {
+    public Artista(int codigo, String nombre, String nacionalidad, boolean grupo, int canciones) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.grupo = grupo;
+        this.canciones=canciones;
     }
+
     
-    
-    
+
     public int getCodigo() {
         return codigo;
     }
@@ -63,5 +70,20 @@ public class Artista {
     public void setGrupo(boolean grupo) {
         this.grupo = grupo;
     }
-    
+    public int getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(int canciones) {
+        this.canciones = canciones;
+    }
+
+    public Artista compareTo(Artista a) {
+        Artista artista=null;
+        if (canciones < a.getCanciones()) {
+            artista = a;
+        }
+        return a;
+    } 
+
 }

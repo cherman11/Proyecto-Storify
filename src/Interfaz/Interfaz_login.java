@@ -19,6 +19,7 @@ public class Interfaz_login extends javax.swing.JFrame {
 
     ArbolBinario arbol = new ArbolBinario();
     ListaCancion listaCanciones = new ListaCancion();
+    Serializacion serial;
 
     /**
      * Creates new form Interfaz_login1
@@ -185,6 +186,8 @@ public class Interfaz_login extends javax.swing.JFrame {
             this.setVisible(false);
             this.txtUsuario.setText("");
             this.pwsUsuario.setText("");
+            arbol = serial.leerArtistas();
+            listaCanciones = serial.leerCanciones();
         }
 
         if (txtUsuario.getText().equals("user") && pwsUsuario.getText().equals("user")) {

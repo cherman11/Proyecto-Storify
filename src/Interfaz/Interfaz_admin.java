@@ -6,12 +6,9 @@
 package Interfaz;
 
 import Mundo.*;
-import java.awt.List;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.TreeMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +20,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
     ArbolBinario arbol;
     ListaCancion listaCanciones;
     Interfaz_login log;
+    Serializacion serial;
 
     /**
      * Metodo constructor
@@ -176,6 +174,9 @@ public class Interfaz_admin extends javax.swing.JFrame {
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         log.setVisible(true);
         this.dispose();
+        ArrayList<Artista> artista = arbol.getArtistas();
+        serial.cargarArtistas(artista);
+        serial.escribirCanciones(listaCanciones);
 
     }//GEN-LAST:event_btnsalirActionPerformed
 
@@ -213,7 +214,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
             }
         }
 
-        if (listaCanciones.getTamano()>0) {
+        if (listaCanciones.getTamano() > 0) {
             generopopular.add(new generoPopular("Rock", rock));
             generopopular.add(new generoPopular("Pop", pop));
             generopopular.add(new generoPopular("Punk", punk));
@@ -221,25 +222,63 @@ public class Interfaz_admin extends javax.swing.JFrame {
             generopopular.add(new generoPopular("Electrónica", electro));
         }
 
-        //no funciona probar debug
         if (!generopopular.isEmpty()) {
             generoPopular genero = generopopular.getFirst();
-            dato=genero.getGenero();
+            dato = genero.getGenero();
             for (int i = 0; i < generopopular.size(); i++) {
                 int valor = generopopular.get(i).getValor();
-                if(valor>genero.getValor()){
-                   dato= generopopular.get(i).getGenero();
-                }                
+                if (valor > genero.getValor()) {
+                    dato = generopopular.get(i).getGenero();
+                }
             }
             JOptionPane.showMessageDialog(null, "El genero mas popular en la tienda es: " + dato);
+            String artistap=obtenerArtistaMasPopular(listaCanciones).getNombre();
+            JOptionPane.showMessageDialog(null, "El artista mas popular es: " + artistap);
+
         } else {
             JOptionPane.showMessageDialog(null, "No hay canciones registradas");
         }
 
+        ///////////////////////////////////////////Artistas//////////////////////////////////
+        
+        
+        
+        //Collections.max(artista);
+        
+
 
     }//GEN-LAST:event_btnConsultasActionPerformed
 
+    public artistaPopular obtenerArtistaMasPopular(ListaCancion lista){
+        
+        ArrayList<artistaPopular> aux = new ArrayList<>();
+        
+        for (Cancion c : lista) {
+            
+            artistaPopular art = new artistaPopular(c.getArtista().getNombre(), 0);
+            
+            if( !existe(art, aux) ){
+                aux.add(art);
+            }
+            
+        }
+        
+        return Collections.max(aux);
+        
+        
+    }
 
+    private boolean existe(artistaPopular ap, ArrayList<artistaPopular> aux ){
+        for (int i = 0; i < aux.size(); i++) {
+            artistaPopular auxA = aux.get(i);
+            if( auxA.equals( ap ) ){
+                auxA.setValor( auxA.getValor()+1 );
+                return true;
+            }
+        }
+        return false;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelOpciones;
     private javax.swing.JButton btnCargar;
