@@ -32,6 +32,8 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz_usuario
      */
+    ArbolBinario arbol = new ArbolBinario();
+    ListaCancion listaCanciones = new ListaCancion();
     Registro registrar = new Registro();
     //--------------------------------
     //selecion de cada fila de todo tabla
@@ -43,21 +45,24 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     boolean busquedaEstado = true;
     ListaCancion listauser = new ListaCancion();
     Cancion cancionDeshacer = null;
-    int userOno = 0,tipoLista=0;//por defecto del usuario sus canciones
+    int userOno = 0, tipoLista = 0;//por defecto del usuario sus canciones
     Cancion cancionRehacer = null;//ctrly
     Cancion rehacerDeshizo = null;//ctrlz
     TableRowSorter<TableModel> tr;
     TableRowSorter<TableModel> tr1;
     TableRowSorter<TableModel> tr2;//favorito
     String[] titulos = new String[]{"Artista", "nombreC", "Album", "Genero"};//pertenece a las tablas
-    ListaCancion listaCanciones = new ListaCancion();
     Usuario usuario;//usuario logeado
-    ListaUsuarios usuarios;InterfazYoutube  youtube;
-     boolean  estadoBuutonPlay =true;
+    ListaUsuarios usuarios;
+    InterfazYoutube youtube;
+    boolean estadoBuutonPlay = true;
+
     public Interfaz_usuario(String user) {
         initComponents();
+        arbol = registrar.getRegistroArtistas();
+        listaCanciones = registrar.getRegistroListacancionesAdmin();
         setLocationRelativeTo(this);
-        usuarios=registrar.getUsuarios();
+        usuarios = registrar.getUsuarios();
         usuario = usuarios.getUsuario(user);
         labelUser.setText(usuario.getUsuario());
         listauser = usuario.getRegistroCancionesUsuario();
@@ -450,17 +455,13 @@ public class Interfaz_usuario extends javax.swing.JFrame {
             if (!nombreArtistas.isEmpty() && nombreAutorLetra.isEmpty() && nombreAlbum.isEmpty() && nombreGenero.equals("Seleccione")) {
                 //dado el nombre de un Artista debe retornar su lista de canciones
                 listaCanciones = getObtenerBusquedaPorNombreArtista(nombreArtistas);
-            } else {
-                if (!nombreArtistas.isEmpty() && !nombreAutorLetra.isEmpty() && !nombreAlbum.isEmpty() && !nombreGenero.isEmpty()) {
-                    //todos atributos que coincidan
-                    getObtenerBusquedaTodos(nombreArtistas, nombreAutorLetra, nombreAlbum, nombreGenero);
+            } else if (!nombreArtistas.isEmpty() && !nombreAutorLetra.isEmpty() && !nombreAlbum.isEmpty() && !nombreGenero.isEmpty()) {
+                //todos atributos que coincidan
+                getObtenerBusquedaTodos(nombreArtistas, nombreAutorLetra, nombreAlbum, nombreGenero);
 
-                } else {
-                    if (!nombreArtistas.isEmpty() || !nombreAutorLetra.isEmpty() || !nombreAlbum.isEmpty() || !nombreGenero.isEmpty()) {
-                        //algunos atributos que coincidan
-                    getObtenerBusquedaPorAlgunos(nombreArtistas, nombreAutorLetra,nombreAlbum, nombreGenero);
-                    }
-                }
+            } else if (!nombreArtistas.isEmpty() || !nombreAutorLetra.isEmpty() || !nombreAlbum.isEmpty() || !nombreGenero.isEmpty()) {
+                //algunos atributos que coincidan
+                getObtenerBusquedaPorAlgunos(nombreArtistas, nombreAutorLetra, nombreAlbum, nombreGenero);
             }
             //cambiar el modo del boton buscar a dejar de buscar para volver a buscar
             cargarLoqueBusque(listaCanciones);
@@ -474,13 +475,13 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_bntbuscarActionPerformed
     private void getObtenerBusquedaTodos(String nombreArtista, String nombreAutorLetra, String nombreAlbum, String nombreGenero) {
         //hilo izquierdo
-        hiloIzquierdo buscar=new hiloIzquierdo(nombreArtista,nombreAutorLetra,nombreAlbum,nombreGenero);
+        hiloIzquierdo buscar = new hiloIzquierdo(nombreArtista, nombreAutorLetra, nombreAlbum, nombreGenero);
         buscar.start();
     }
 
-    private void  getObtenerBusquedaPorAlgunos(String nombreArtista, String nombreAutorLetra, String nombreAlbum, String nombreGenero) {
+    private void getObtenerBusquedaPorAlgunos(String nombreArtista, String nombreAutorLetra, String nombreAlbum, String nombreGenero) {
         //hilo derecho
-        hiloDerecho buscar=new hiloDerecho(nombreArtista,nombreAutorLetra,nombreAlbum,nombreGenero);
+        hiloDerecho buscar = new hiloDerecho(nombreArtista, nombreAutorLetra, nombreAlbum, nombreGenero);
         buscar.start();
     }
 
@@ -613,18 +614,16 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         int anio = 0;
         String duracion = "";
         String albumA = "";
-        ListaCancion listaUser=null ;NodoCancion aux=null;
-        if(tipoLista==0){
-         listaUser = usuario.getRegistroCancionesUsuario();
-         aux= listaUser.getPrimero();
+        ListaCancion listaUser = null;
+        NodoCancion aux = null;
+        if (tipoLista == 0) {
+            listaUser = usuario.getRegistroCancionesUsuario();
+            aux = listaUser.getPrimero();
+        } else if (tipoLista == 1) {
+            listaUser = usuario.getRegistroCancionesFavoritas();
+            aux = listaUser.getPrimero();
         }
-        else{
-            if(tipoLista==1){
-                listaUser = usuario.getRegistroCancionesFavoritas();
-                aux= listaUser.getPrimero();
-            }
-        }
-        
+
         //validacion de la cancion si exite en la lista de canciones
         while (aux != null) {
             if (aux.getDato().getArtista().getNombre().equals(nombreArtista) && aux.getDato().getNombre().equals(nombreC)
@@ -646,24 +645,21 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         if (arista != null) {//crea la cancion para poder eliminar de la lista
             Cancion cancion = new Cancion(arista, nombreC, albumA, duracion, genero1, url, codigo, anio);
             cancionDeshacer = cancion;//para guardar deshacer
-            if(tipoLista==0){//elimina de lista de canciones usuario
+            if (tipoLista == 0) {//elimina de lista de canciones usuario
                 userOno = 1;//agregar de nuevo
-            listaUser.eliminar(cancion);
-            listauser = listaUser;
-            usuario.RegistrarListaCancion(listaUser);
-            registrar.actualizarUsuarios(usuarios);
-            cargarCancionesUsuario();
-            }
-            else{
-            if(tipoLista==1){//elimina lista de canciones de favoritos
-                userOno=2;
+                listaUser.eliminar(cancion);
+                listauser = listaUser;
+                usuario.RegistrarListaCancion(listaUser);
+                registrar.actualizarUsuarios(usuarios);
+                cargarCancionesUsuario();
+            } else if (tipoLista == 1) {//elimina lista de canciones de favoritos
+                userOno = 2;
                 listaUser.eliminar(cancion);
                 usuario.RegistrarListaCancionFavorita(listaUser);
                 registrar.actualizarUsuarios(usuarios);
                 cargarDatosUsersFavoritas();
             }
-            }
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "seleccione una fila para eliminar");
         }
@@ -677,7 +673,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         nombreC = selector.getValueAt(index, 1).toString();
         album = selector.getValueAt(index, 2).toString();
         genero = selector.getValueAt(index, 3).toString();
-        tipoLista=0;
+        tipoLista = 0;
     }//GEN-LAST:event_tablaCancionesMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -686,16 +682,13 @@ public class Interfaz_usuario extends javax.swing.JFrame {
             if (userOno == 1) {
                 listauser.agregarFinal(cancionDeshacer);
                 rehacerDeshizo = cancionDeshacer;//ctrl y
+            } else if (userOno == 2) {
+                listauser.eliminar(cancionDeshacer);
             } else {
-                if(userOno==2){
-                    listauser.eliminar(cancionDeshacer);
-                }
-                else{
-                    ListaCancion list=usuario.getRegistroCancionesFavoritas();
-                    list.eliminar(cancionDeshacer);
-                    usuario.RegistrarListaCancionFavorita(list);
-                    cargarDatosUsersFavoritas();
-                }
+                ListaCancion list = usuario.getRegistroCancionesFavoritas();
+                list.eliminar(cancionDeshacer);
+                usuario.RegistrarListaCancionFavorita(list);
+                cargarDatosUsersFavoritas();
             }
             usuario.RegistrarListaCancion(listauser);
             registrar.actualizarUsuarios(usuarios);
@@ -728,7 +721,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         int anio = 0;
         String duracion = "";
         String albumA = "";
-        usuarios=registrar.getUsuarios();
+        usuarios = registrar.getUsuarios();
         ListaCancion listaUser = usuarios.getUsuario(usuario.getUsuario()).getRegistroCancionesUsuario();
         NodoCancion aux = listaUser.getPrimero();
         while (aux != null) {
@@ -753,17 +746,17 @@ public class Interfaz_usuario extends javax.swing.JFrame {
             System.err.println("url: " + url);
             //this.dispose();
             java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                //new TableSortFilter().setVisible(true);
-                youtube=new InterfazYoutube(cancion.getUrl(),usuario.getUsuario());
-                youtube.start();
-            }
-        });
+                @Override
+                public void run() {
+                    //new TableSortFilter().setVisible(true);
+                    youtube = new InterfazYoutube(cancion.getUrl(), usuario.getUsuario());
+                    youtube.start();
+                }
+            });
         } else {
             JOptionPane.showMessageDialog(null, "seleccione una fila");
         }
-        
+
     }//GEN-LAST:event_buttonPlayActionPerformed
 
     private void tablaFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFavoritosMouseClicked
@@ -774,19 +767,19 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         nombreC = selector.getValueAt(index, 1).toString();
         album = selector.getValueAt(index, 2).toString();
         genero = selector.getValueAt(index, 3).toString();
-        tipoLista=1;
+        tipoLista = 1;
     }//GEN-LAST:event_tablaFavoritosMouseClicked
 
     private void favoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favoritoActionPerformed
         //agrega a favoritos un tema seleccionado
-         Artista arista = null;
+        Artista arista = null;
         String genero1 = "";
         String url = "";
         int codigo = 0;
         int anio = 0;
         String duracion = "";
         String albumA = "";
-        ListaCancion listaAdmi =usuario.getRegistroCancionesUsuario();
+        ListaCancion listaAdmi = usuario.getRegistroCancionesUsuario();
         NodoCancion aux = listaAdmi.getPrimero();
         while (aux != null) {
             if (aux.getDato().getArtista().getNombre().equals(nombreArtista) && aux.getDato().getNombre().equals(nombreC)
@@ -803,7 +796,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
                 aux = aux.getSiguiente();
             }
         }
-        ListaCancion modif=usuario.getRegistroCancionesFavoritas();
+        ListaCancion modif = usuario.getRegistroCancionesFavoritas();
         if (arista != null) {// sino se encontro o no coincide con ningun artista no hace nada
             Cancion cancion = new Cancion(arista, nombreC, albumA, duracion, genero1, url, codigo, anio);
             modif.agregarFinal(cancion);
@@ -899,9 +892,10 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         }
         FuncionOrdernarTablero(tr, tablaCanciones, jScrollPane1, objeto);//user
     }
+
     private void cargarDatosUsersFavoritas() {
         //recarga  de favoritos por si hay cambios
-        NodoCancion aux =usuario.getRegistroCancionesFavoritas().getPrimero();
+        NodoCancion aux = usuario.getRegistroCancionesFavoritas().getPrimero();
         ArrayList<String> listaGetListaCancion = new ArrayList<>();
         String cadena;
         while (aux != null) {
@@ -921,91 +915,97 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         }
         FuncionOrdernarTablero(tr2, tablaFavoritos, jScrollPane4, objeto);//userfavorito
     }
+
     public class hiloDerecho extends Thread {
-        private final String nombreArtista,nombreAutorLetra, nombreAlbum,nombreGenero;
-        public hiloDerecho(String nombreArtista,String nombreAutorLetra,String nombreAlbum,String nombreGenero) {
-            this.nombreArtista=nombreArtista;
-            this.nombreAutorLetra=nombreAutorLetra;
-            this.nombreAlbum=nombreAlbum;
-            this.nombreGenero=nombreGenero;
+
+        private final String nombreArtista, nombreAutorLetra, nombreAlbum, nombreGenero;
+
+        public hiloDerecho(String nombreArtista, String nombreAutorLetra, String nombreAlbum, String nombreGenero) {
+            this.nombreArtista = nombreArtista;
+            this.nombreAutorLetra = nombreAutorLetra;
+            this.nombreAlbum = nombreAlbum;
+            this.nombreGenero = nombreGenero;
         }
 
         @Override
         public void run() {
             ListaCancion salida = new ListaCancion();
-        ArbolBinario ListaArtistas = registrar.getRegistroArtistas();
-        Artista artista = getArtista(nombreArtista);
-        NodoArtista aux = ListaArtistas.getRaiz();
-        boolean encontro = false;
-        if (artista != null) {
-            while (aux != null) {//busqueda por la derecha
-                if (aux.getArtista().getNombre().equals(artista.getNombre())) {
-                    aux = null;
-                    encontro = true;
-                } else {
-                    aux = aux.getDerecho();//busca por el lado derecho del arbol
-                }
-            }
-        }
-        ListaCancion adminLista = registrar.getRegistroListacancionesAdmin();
-        NodoCancion aux2 = adminLista.getPrimero();
-        while (aux2 != null) {
-            if (aux2.getDato().getArtista().getNombre().equals(nombreArtista) || aux2.getDato().getNombre().equals(nombreAutorLetra) || aux2.getDato().getAlbum().equals(nombreAlbum)
-                    || aux2.getDato().getGenero().equals(nombreGenero)) {
-                salida.agregarFinal(aux2.getDato());
-                aux2 = aux2.getSiguiente();
-            } else {
-                aux2 = aux2.getSiguiente();
-            }
-        }
-        if (salida.estaVacia()) {
-            JOptionPane.showMessageDialog(null, "no hay cancion con tales descripciones");
-        }
-        listaCanciones=salida;
-        }
-    }
-    public class hiloIzquierdo extends Thread {
-        private final String nombreArtista,nombreAutorLetra, nombreAlbum,nombreGenero;
-        public hiloIzquierdo(String nombreArtista,String nombreAutorLetra,String nombreAlbum,String nombreGenero) {
-            this.nombreArtista=nombreArtista;
-            this.nombreAutorLetra=nombreAutorLetra;
-            this.nombreAlbum=nombreAlbum;
-            this.nombreGenero=nombreGenero;
-        }
-
-        @Override
-        public void run() {
-            ListaCancion salida = new ListaCancion();
-        ArbolBinario ListaArtistas = registrar.getRegistroArtistas();
-        Artista artista = getArtista(nombreArtista);
-        NodoArtista aux = ListaArtistas.getRaiz();
-        boolean encontro = false;
-        if (artista != null) {
-            while (aux != null) {//busqueda por la izquierda
-                if (aux.getArtista().getNombre().equals(artista.getNombre())) {
-                    aux = null;
-                    encontro = true;
-                } else {
-                    aux = aux.getIzquierdo();//busca por el lado izquierdo del arbol
+            ArbolBinario ListaArtistas = registrar.getRegistroArtistas();
+            Artista artista = getArtista(nombreArtista);
+            NodoArtista aux = ListaArtistas.getRaiz();
+            boolean encontro = false;
+            if (artista != null) {
+                while (aux != null) {//busqueda por la derecha
+                    if (aux.getArtista().getNombre().equals(artista.getNombre())) {
+                        aux = null;
+                        encontro = true;
+                    } else {
+                        aux = aux.getDerecho();//busca por el lado derecho del arbol
+                    }
                 }
             }
             ListaCancion adminLista = registrar.getRegistroListacancionesAdmin();
             NodoCancion aux2 = adminLista.getPrimero();
             while (aux2 != null) {
-                if (aux2.getDato().getArtista().getNombre().equals(artista.getNombre())
-                        && aux2.getDato().getNombre().equals(nombreAutorLetra)
-                        && aux2.getDato().getAlbum().equals(nombreAlbum)
-                        && aux2.getDato().getGenero().equals(nombreGenero)) {
+                if (aux2.getDato().getArtista().getNombre().equals(nombreArtista) || aux2.getDato().getNombre().equals(nombreAutorLetra) || aux2.getDato().getAlbum().equals(nombreAlbum)
+                        || aux2.getDato().getGenero().equals(nombreGenero)) {
                     salida.agregarFinal(aux2.getDato());
                     aux2 = aux2.getSiguiente();
                 } else {
                     aux2 = aux2.getSiguiente();
                 }
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "no hay artista con ese nombre");
+            if (salida.estaVacia()) {
+                JOptionPane.showMessageDialog(null, "no hay cancion con tales descripciones");
+            }
+            listaCanciones = salida;
         }
-        listaCanciones=salida;
+    }
+
+    public class hiloIzquierdo extends Thread {
+
+        private final String nombreArtista, nombreAutorLetra, nombreAlbum, nombreGenero;
+
+        public hiloIzquierdo(String nombreArtista, String nombreAutorLetra, String nombreAlbum, String nombreGenero) {
+            this.nombreArtista = nombreArtista;
+            this.nombreAutorLetra = nombreAutorLetra;
+            this.nombreAlbum = nombreAlbum;
+            this.nombreGenero = nombreGenero;
+        }
+
+        @Override
+        public void run() {
+            ListaCancion salida = new ListaCancion();
+            ArbolBinario ListaArtistas = registrar.getRegistroArtistas();
+            Artista artista = getArtista(nombreArtista);
+            NodoArtista aux = ListaArtistas.getRaiz();
+            boolean encontro = false;
+            if (artista != null) {
+                while (aux != null) {//busqueda por la izquierda
+                    if (aux.getArtista().getNombre().equals(artista.getNombre())) {
+                        aux = null;
+                        encontro = true;
+                    } else {
+                        aux = aux.getIzquierdo();//busca por el lado izquierdo del arbol
+                    }
+                }
+                ListaCancion adminLista = registrar.getRegistroListacancionesAdmin();
+                NodoCancion aux2 = adminLista.getPrimero();
+                while (aux2 != null) {
+                    if (aux2.getDato().getArtista().getNombre().equals(artista.getNombre())
+                            && aux2.getDato().getNombre().equals(nombreAutorLetra)
+                            && aux2.getDato().getAlbum().equals(nombreAlbum)
+                            && aux2.getDato().getGenero().equals(nombreGenero)) {
+                        salida.agregarFinal(aux2.getDato());
+                        aux2 = aux2.getSiguiente();
+                    } else {
+                        aux2 = aux2.getSiguiente();
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "no hay artista con ese nombre");
+            }
+            listaCanciones = salida;
         }
     }
 }

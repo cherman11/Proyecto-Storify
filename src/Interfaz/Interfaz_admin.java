@@ -51,16 +51,23 @@ public class Interfaz_admin extends javax.swing.JFrame {
         btnConsultas = new javax.swing.JButton();
         btnregistrarArtista = new javax.swing.JButton();
         btnregistrarCancion = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         btnsalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel1.setText("Bienvenido ADMIN");
 
-        PanelOpciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PanelOpciones.setBackground(new java.awt.Color(255, 255, 255));
+        PanelOpciones.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
 
+        jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel2.setText("Panel de Opciones");
 
+        btnCargar.setBackground(new java.awt.Color(0, 0, 0));
+        btnCargar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btnCargar.setForeground(new java.awt.Color(255, 255, 255));
         btnCargar.setText("Cargar Informacion");
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +75,9 @@ public class Interfaz_admin extends javax.swing.JFrame {
             }
         });
 
+        btnConsultas.setBackground(new java.awt.Color(0, 0, 0));
+        btnConsultas.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btnConsultas.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultas.setText("Realizar Consultas");
         btnConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +85,9 @@ public class Interfaz_admin extends javax.swing.JFrame {
             }
         });
 
+        btnregistrarArtista.setBackground(new java.awt.Color(0, 0, 0));
+        btnregistrarArtista.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btnregistrarArtista.setForeground(new java.awt.Color(255, 255, 255));
         btnregistrarArtista.setText("registrar Artista");
         btnregistrarArtista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +95,9 @@ public class Interfaz_admin extends javax.swing.JFrame {
             }
         });
 
+        btnregistrarCancion.setBackground(new java.awt.Color(0, 0, 0));
+        btnregistrarCancion.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btnregistrarCancion.setForeground(new java.awt.Color(255, 255, 255));
         btnregistrarCancion.setText("registrar Cancion");
         btnregistrarCancion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,33 +110,48 @@ public class Interfaz_admin extends javax.swing.JFrame {
         PanelOpcionesLayout.setHorizontalGroup(
             PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelOpcionesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnregistrarCancion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnregistrarArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCargar)
-                    .addComponent(btnConsultas)))
+                    .addGroup(PanelOpcionesLayout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelOpcionesLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelOpcionesLayout.createSequentialGroup()
+                                .addComponent(btnregistrarCancion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnConsultas))
+                            .addGroup(PanelOpcionesLayout.createSequentialGroup()
+                                .addComponent(btnregistrarArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCargar)))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
+
+        PanelOpcionesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCargar, btnConsultas, btnregistrarArtista, btnregistrarCancion});
+
         PanelOpcionesLayout.setVerticalGroup(
             PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelOpcionesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(44, 44, 44)
                 .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnregistrarArtista)
+                    .addComponent(btnregistrarArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCargar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnregistrarCancion)
                     .addComponent(btnConsultas))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
+        PanelOpcionesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCargar, btnConsultas, btnregistrarArtista, btnregistrarCancion});
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/musica.jpg"))); // NOI18N
+
+        btnsalir.setBackground(new java.awt.Color(0, 153, 255));
+        btnsalir.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         btnsalir.setText("Salir");
         btnsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,29 +164,36 @@ public class Interfaz_admin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PanelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(66, 66, 66)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnsalir)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(170, 170, 170))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(PanelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(69, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PanelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnsalir)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        pack();
+        setBounds(0, 0, 520, 428);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
@@ -281,5 +319,6 @@ public class Interfaz_admin extends javax.swing.JFrame {
     private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

@@ -49,6 +49,7 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
      */
     public Interfaz_cargarInfo(Interfaz_admin admin, ArbolBinario arbol, ListaCancion listaCanciones) {
         initComponents();
+        setLocationRelativeTo(this);
         DialogCargar.setVisible(false);
         DialogCargar.setSize(800, 600);
         txtArea.setVisible(false);
@@ -69,12 +70,13 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
 
         DialogCargar = new javax.swing.JDialog();
         fileCargar = new javax.swing.JFileChooser();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblSeleccionar = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
-        btnRegresar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
 
         fileCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,14 +102,21 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cargar Informacion");
 
+        lblSeleccionar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        lblSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         lblSeleccionar.setText("Seleccionar Archivo");
         lblSeleccionar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -126,18 +135,8 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
             }
         });
 
-        txtArea.setEditable(false);
-        txtArea.setColumns(20);
-        txtArea.setRows(5);
-        jScrollPane1.setViewportView(txtArea);
-
-        btnRegresar.setText("regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
+        btnGuardar.setBackground(new java.awt.Color(0, 153, 255));
+        btnGuardar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,40 +144,67 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setBackground(new java.awt.Color(0, 153, 255));
+        btnRegresar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        btnRegresar.setText("regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
+        txtArea.setEditable(false);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        jScrollPane1.setViewportView(txtArea);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblSeleccionar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRegresar))))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnGuardar, btnRegresar});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSeleccionar)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnGuardar, btnRegresar});
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblSeleccionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
-                                .addComponent(btnGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnRegresar))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSeleccionar)
-                    .addComponent(btnRegresar)
-                    .addComponent(btnGuardar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,11 +319,11 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSeleccionarMouseMoved
 
     private void lblSeleccionarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeleccionarMouseDragged
-        lblSeleccionar.setForeground(Color.black);        // TODO add your handling code here:
+        lblSeleccionar.setForeground(Color.white);        // TODO add your handling code here:
     }//GEN-LAST:event_lblSeleccionarMouseDragged
 
     private void lblSeleccionarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSeleccionarMouseExited
-        lblSeleccionar.setForeground(Color.black);       // TODO add your handling code here:
+        lblSeleccionar.setForeground(Color.white);       // TODO add your handling code here:
 
     }//GEN-LAST:event_lblSeleccionarMouseExited
     public String guardarArchivo(File archivo, String informacion) {
@@ -341,6 +367,7 @@ public class Interfaz_cargarInfo extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JFileChooser fileCargar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JTextArea txtArea;

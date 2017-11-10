@@ -83,9 +83,10 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         txtduracion = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Century Schoolbook", 0, 18)); // NOI18N
@@ -93,10 +94,11 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         jLabel5.setText("Registrar cancion");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Codigo");
 
         txtcodigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -106,6 +108,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre");
 
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -133,25 +136,31 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Album");
 
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Caratula");
 
         jLabel8.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Año");
 
         cboaño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "1960", "1970", "1980", "2000", "2010", "2017" }));
 
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Genero");
 
         cbogenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Rock", "Pop", "Cumbia", "Reggaeton", "Electrónica" }));
 
         jLabel10.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Url Youtube");
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Artista/autor");
 
         cboArtista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE" }));
@@ -167,8 +176,11 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Duracion");
 
+        jButton1.setBackground(new java.awt.Color(0, 153, 255));
+        jButton1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jButton1.setText("Agregar Artista/Cancion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +189,15 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         });
 
         jLabel12.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("min");
+
+        jButton2.setText("prueba");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,6 +208,8 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnvolver)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,7 +250,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(cboArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,7 +272,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(txtduracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel6))
@@ -274,14 +296,15 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnvolver)
                     .addComponent(btnguardar)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, 390));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 460, 390));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/musica.jpg"))); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 510));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -30, -1, 510));
 
         setBounds(0, 0, 532, 494);
     }// </editor-fold>//GEN-END:initComponents
@@ -416,6 +439,10 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         Artista artista = arbol.getArtistas().get(cboArtista.getSelectedIndex() - 1);
         txtcodigo.setText(artista.getCodigo() + "");
     }//GEN-LAST:event_cboArtistaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      listaCanciones.imprimir();
+    }//GEN-LAST:event_jButton2ActionPerformed
     private Artista getArtista(String nombre, ArrayList<Artista> artistas) {
         Artista artista = null;
         for (int i = 0; i < artistas.size(); i++) {
@@ -444,6 +471,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboaño;
     private javax.swing.JComboBox<String> cbogenero;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

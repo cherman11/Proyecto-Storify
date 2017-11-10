@@ -57,13 +57,14 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Codigo");
 
         txtcodigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -73,6 +74,7 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre");
 
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -100,9 +102,11 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nacionalidad");
 
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Grupo");
 
         txtnacionalidad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -111,11 +115,13 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
             }
         });
 
+        btngruposi.setForeground(new java.awt.Color(255, 255, 255));
         btngruposi.setText("SI");
 
+        btngrupono.setForeground(new java.awt.Color(255, 255, 255));
         btngrupono.setText("NO");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Prueba");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -262,7 +268,8 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnacionalidadKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(" " + arbol.cantidadNodos(0));
+        System.out.println("# artistas registrados: " + arbol.cantidadNodos(0));
+        System.out.println("Arbol de artistas");
         if (arbol.getRaiz() != null) {
             arbol.imprimirHorizontal(arbol.getRaiz(),0);
         } else {

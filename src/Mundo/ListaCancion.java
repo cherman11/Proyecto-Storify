@@ -188,9 +188,10 @@ public class ListaCancion  implements Serializable ,Iterable<Cancion> {
      */
     public void imprimir() {
         NodoCancion aux = primero;
+        System.out.println("Lista de canciones en la tienda");
 
         while (aux != null) {
-            System.out.print(aux.getDato().getNombre() + "\t");
+            System.out.println(aux.getDato().getNombre());
             aux = aux.getSiguiente();
         }
     }
