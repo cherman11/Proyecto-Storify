@@ -3,8 +3,8 @@
 2;Rio Roma;Colombia;true
 3;The Mills;Colombia;true
 4;Jessy Joy;Chile;true
-5;Felipe Pelaez;Colombia;false
-6;Ozuna;Dominicana;false
+5;Ozuna;Dominicana;false
+6;Felipe Pelaez;Colombia;false
 #Canciones
 Maluma;Corazon;Nego do borel;2017;5;Reggaeton;https://www.youtube.com/watch?v=btbmtFH0eEg
 Felipe Pelaez;Vivo pensando en ti;Felipe Pelaez;2017;4;Pop;https://www.youtube.com/watch?v=cPW9Y94BJI0

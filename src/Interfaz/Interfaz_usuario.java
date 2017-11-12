@@ -119,6 +119,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         labelUser.setText("Usuario");
 
         btnsalir.setBackground(new java.awt.Color(0, 153, 255));
+        btnsalir.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         btnsalir.setText("Salir");
         btnsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,6 +184,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaCanciones);
 
         btneliminar.setBackground(new java.awt.Color(0, 153, 255));
+        btneliminar.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         btneliminar.setText("Eliminar Cancion");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,6 +215,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         jLabel9.setText("Favoritos");
 
         favorito.setBackground(new java.awt.Color(0, 153, 255));
+        favorito.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         favorito.setText("Agregar A Favoritos");
         favorito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +224,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         });
 
         buttonPlay.setBackground(new java.awt.Color(0, 153, 255));
+        buttonPlay.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         buttonPlay.setText("Reproducir Cancion");
         buttonPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,6 +283,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         panelBusar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnagregarCancion.setBackground(new java.awt.Color(0, 153, 255));
+        btnagregarCancion.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         btnagregarCancion.setText("Agregar A lista favorita");
         btnagregarCancion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -721,7 +726,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void tablaCancionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCancionesMouseClicked
-        //ase la seleccion de fila completa de una determinada tabla
+        //hace la seleccion de fila completa de una determinada tabla
         int index = tablaCanciones.getSelectedRow();
         TableModel selector = tablaCanciones.getModel();
         nombreArtista = selector.getValueAt(index, 0).toString();
@@ -815,7 +820,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
     private void tablaFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFavoritosMouseClicked
         //selecciona un fila completa de favoritos
         int index = tablaFavoritos.getSelectedRow();
-        TableModel selector = tablaCanciones.getModel();
+        TableModel selector = tablaFavoritos.getModel();
         nombreArtista = selector.getValueAt(index, 0).toString();
         nombreC = selector.getValueAt(index, 1).toString();
         album = selector.getValueAt(index, 2).toString();
