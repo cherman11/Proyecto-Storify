@@ -56,7 +56,7 @@ public class InterfazYoutube extends Thread {
             NativeInterface.open();
             SwingUtilities.invokeLater(() -> {
             frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setSize(700, 500);
             frame.getContentPane().add(getwebBrower(url));
             frame.setLocationRelativeTo(null);
