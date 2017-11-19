@@ -14,22 +14,25 @@ import javax.swing.JOptionPane;
  * @author Victor H Buritica
  */
 public class Interfaz_registroArtista extends javax.swing.JFrame {
+
     Interfaz_login log;
     ArbolBinario arbol;
     ListaCancion listaCanciones;
-    Registro registrar=new Registro();
+    Registro registrar = new Registro();
+
     /**
      * Metodo constructor de la interfaz
      */
     public Interfaz_registroArtista(Interfaz_login log) {
         initComponents();
-        this.log= log;
-        this.arbol =registrar.getRegistroArtistas();
+        this.log = log;
+        this.arbol = registrar.getRegistroArtistas();
         this.listaCanciones = registrar.getRegistroListacancionesAdmin();
         setLocationRelativeTo(this);
         btnGrupo.add(btngruposi);
         btnGrupo.add(btngrupono);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,7 +55,6 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
         txtnacionalidad = new javax.swing.JTextField();
         btngruposi = new javax.swing.JRadioButton();
         btngrupono = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
@@ -66,6 +68,12 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Codigo");
 
+        txtcodigo.setEditable(false);
+        txtcodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtcodigoFocusGained(evt);
+            }
+        });
         txtcodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtcodigoKeyPressed(evt);
@@ -120,13 +128,6 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
         btngrupono.setForeground(new java.awt.Color(255, 255, 255));
         btngrupono.setText("NO");
 
-        jButton1.setText("Prueba");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -143,17 +144,11 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
                             .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtnacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jButton1)
-                                .addGap(157, 157, 157)))
+                            .addComponent(jLabel3)
+                            .addComponent(txtnacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -187,17 +182,11 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
                     .addComponent(txtnacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btngruposi)
                     .addComponent(btngrupono))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnvolver)
-                            .addComponent(btnguardar))
-                        .addContainerGap(26, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addContainerGap())))
+                    .addComponent(btnvolver)
+                    .addComponent(btnguardar))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 190));
@@ -244,15 +233,15 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
             Artista artista = new Artista(codigo, nombre, nacionalidad, grupo);
             arbol.agregarNodoArtista(artista);
             registrar.RegistrarArtistas(arbol);
-            JOptionPane.showMessageDialog(null,"se guardo correctamente");
-            txtcodigo.setText("");
+            int cont = 1 + arbol.cantidadNodos(0);
+            txtcodigo.setText(String.valueOf(cont));            
             txtnombre.setText("");
-            txtnacionalidad.setText("");            
+            txtnacionalidad.setText("");
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
-        Interfaz_admin admin = new Interfaz_admin(arbol,listaCanciones,log);
+        Interfaz_admin admin = new Interfaz_admin(arbol, listaCanciones, log);
         admin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
@@ -262,25 +251,20 @@ public class Interfaz_registroArtista extends javax.swing.JFrame {
         java.awt.event.ActionEvent e = null;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnguardarActionPerformed(e);
-        }   
+        }
     }//GEN-LAST:event_txtnacionalidadKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("# artistas registrados: " + arbol.cantidadNodos(0));
-        System.out.println("Arbol de artistas");
-        if (arbol.getRaiz() != null) {
-            arbol.imprimirHorizontal(arbol.getRaiz(),0);
-        } else {
-            System.out.println("Arbol is empty");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void txtcodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcodigoFocusGained
+        int cont = 1 + arbol.cantidadNodos(0);
+        txtcodigo.setText(String.valueOf(cont));
+    }//GEN-LAST:event_txtcodigoFocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JRadioButton btngrupono;
     private javax.swing.JRadioButton btngruposi;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnvolver;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author Victor H Buritica
  */
 public class Interfaz_registarCancion extends javax.swing.JFrame {
-
+    
     Interfaz_login log;
     ArbolBinario arbol;
     ListaCancion listaCanciones;
@@ -74,8 +74,6 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         btnvolver = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtalbum = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtcaratula = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         cboaño = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
@@ -88,7 +86,6 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         txtduracion = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -144,10 +141,6 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Album");
 
-        jLabel6.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Caratula");
-
         jLabel8.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Año");
@@ -197,13 +190,6 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("min");
 
-        jButton2.setText("prueba");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -213,8 +199,6 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnvolver)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,11 +213,9 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cboaño, javax.swing.GroupLayout.Alignment.LEADING, 0, 199, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
-                                    .addComponent(cbogenero, 0, 199, Short.MAX_VALUE)
-                                    .addComponent(txtcaratula, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                                    .addComponent(jLabel6)))
+                                    .addComponent(cbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
@@ -278,13 +260,9 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                     .addComponent(txtduracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6))
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtalbum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtcaratula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtalbum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -301,8 +279,7 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnvolver)
                     .addComponent(btnguardar)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -330,12 +307,12 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         if (cboArtista.getSelectedIndex() == 0 || txtcodigo.getText().equals("") || txtnombre.getText().equals("") || txtalbum.getText().equals("")
-                || txtcaratula.getText().equals("") || txtyoutube.getText().equals("")
+                || txtyoutube.getText().equals("")
                 || cboaño.getSelectedIndex() == 0 || cbogenero.getSelectedIndex() == 0) {
             txtcodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             txtalbum.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-            txtcaratula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+            
             txtyoutube.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
             JOptionPane.showMessageDialog(this, "Completar Todos los  campos");
         } else {
@@ -350,14 +327,19 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
                 int año = Integer.parseInt(cboaño.getSelectedItem().toString());
                 if (Integer.parseInt(duracion) > 0) {
                     Cancion cancion = new Cancion(artista, nombreC, album, duracion, genero, url, codigo, año);
-
+                    
                     if (listaCanciones.agregarFinal1(cancion)) {
                         registrar.RegistrarListaCancionesAdmin(listaCanciones);
                         JOptionPane.showMessageDialog(null, "cancion agregada correctamente");
                         txtnombre.setText("");
                         txtyoutube.setText("");
+                        txtalbum.setText("");
+                        cargarCombo();
+                        txtcodigo.setText("");
+                        txtduracion.setText("");
+                        
                     }
-
+                    
                 }
             } catch (Exception e) {
                 System.err.println("datos erroneos");
@@ -439,15 +421,12 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
         Artista artista = arbol.getArtistas().get(cboArtista.getSelectedIndex() - 1);
         txtcodigo.setText(artista.getCodigo() + "");
     }//GEN-LAST:event_cboArtistaActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        listaCanciones.imprimir();
-    }//GEN-LAST:event_jButton2ActionPerformed
     /**
      * Metodo que permite obtener un artista
+     *
      * @param nombre
      * @param artistas
-     * @return 
+     * @return
      */
     private Artista getArtista(String nombre, ArrayList<Artista> artistas) {
         Artista artista = null;
@@ -461,10 +440,12 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo que permite obtener el codgigo de un artista para asignarlo a las canciones nuevas
+     * Metodo que permite obtener el codgigo de un artista para asignarlo a las
+     * canciones nuevas
+     *
      * @param nombre
      * @param artistas
-     * @return 
+     * @return
      */
     private int getCodigo(String nombre, ArrayList<Artista> artistas) {
         int codigo = -1;
@@ -483,7 +464,6 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboaño;
     private javax.swing.JComboBox<String> cbogenero;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -492,13 +472,11 @@ public class Interfaz_registarCancion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtalbum;
-    private javax.swing.JTextField txtcaratula;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtduracion;
     private javax.swing.JTextField txtnombre;

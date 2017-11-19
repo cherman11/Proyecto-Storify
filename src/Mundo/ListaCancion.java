@@ -204,7 +204,7 @@ public class ListaCancion implements Iterable,Serializable {
         NodoCancion aux = primero;
 
         while (aux != null) {
-            System.out.print(aux.getDato().getNombre() + "\t");
+            System.out.print("--["+aux.getDato().getNombre() + "]--\t");
             aux = aux.getSiguiente();
         }
     }

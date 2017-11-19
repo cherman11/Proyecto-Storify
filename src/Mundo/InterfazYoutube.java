@@ -8,6 +8,8 @@ package Mundo;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
 import java.awt.BorderLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -50,34 +52,32 @@ public class InterfazYoutube extends Thread {
 
         JFrame frame;
 
-        
-        public interfaz(String url){
-            
+        public interfaz(String url) {
+
             NativeInterface.open();
             SwingUtilities.invokeLater(() -> {
-            frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setSize(700, 500);
-            frame.getContentPane().add(getwebBrower(url));
-            frame.setLocationRelativeTo(null);
-            frame.setUndecorated(true);
-            frame.setVisible(true);
-        });
-        NativeInterface.runEventPump();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            NativeInterface.open();
+                frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setSize(700, 500);
+                frame.getContentPane().add(getwebBrower(url));
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);                
+            });
+            NativeInterface.runEventPump();
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                NativeInterface.open();
             }));
         }
 
         public JPanel getwebBrower(String url) {
-            String protocolo = "https://www.youtube.com/v/";
+            String protocolo = url;
             String focus = "?fs=1";
             String rederig = parserURL(url);
             JPanel pane = new JPanel(new BorderLayout());
             JWebBrowser web = new JWebBrowser();
             pane.add(web, BorderLayout.CENTER);
             web.setBarsVisible(false);
-            web.navigate(protocolo + rederig + focus);
+            web.navigate(protocolo);
             web.updateUI();
             if (web.isDisplayable()) {
                 System.out.println("salio");

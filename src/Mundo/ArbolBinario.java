@@ -65,6 +65,7 @@ public class ArbolBinario implements Serializable {
         } else if (raiz == null) {
             raiz = nodo;
             artistas.add(artista);
+            JOptionPane.showMessageDialog(null, "Se guardo Correctamente.");
         } else {
             NodoArtista aux = raiz;
             NodoArtista padre;
@@ -78,6 +79,7 @@ public class ArbolBinario implements Serializable {
                     if (aux == null) {
                         padre.setIzquierdo(nodo);
                         artistas.add(artista);
+                        JOptionPane.showMessageDialog(null, "Se guardo Correctamente.");
                         return;
                     }
                 } else {
@@ -85,10 +87,12 @@ public class ArbolBinario implements Serializable {
                     if (aux == null) {
                         padre.setDerecho(nodo);
                         artistas.add(artista);
+                        JOptionPane.showMessageDialog(null, "Se guardo Correctamente.");
                         return;
                     }
                 }
             }
+            
         }
     }
 
@@ -182,7 +186,7 @@ public class ArbolBinario implements Serializable {
         } else {
             NodoArtista aux = raiz;
             while (!aux.getArtista().getNombre().equals(nombre)) {
-                int comparacion = nombre.compareTo(raiz.getArtista().getNombre());
+                int comparacion = nombre.compareTo(aux.getArtista().getNombre());
                 if (comparacion < 0) {
                     aux = aux.getIzquierdo();
                 } else {

@@ -54,7 +54,7 @@ public class Interfaz_admin extends javax.swing.JFrame {
         btnsalir = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
@@ -180,8 +180,9 @@ public class Interfaz_admin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
-        //Rock, Pop, Punk, Reggaeton, Electrónica        
+        //Rock, Pop, Punk, Reggaeton, Electrónica          
         String dato = "";
+        String artistap = "";
         LinkedList<GeneroPopular> generopopular = new LinkedList<>();
         int rock = 0, pop = 0, punk = 0, regge = 0, electro = 0;
         for (int i = 0; i < listaCanciones.getTamano(); i++) {
@@ -224,13 +225,22 @@ public class Interfaz_admin extends javax.swing.JFrame {
                     dato = generopopular.get(i).getGenero();
                 }
             }
-            JOptionPane.showMessageDialog(null, "El genero mas popular en la tienda es: " + dato);
-            String artistap = obtenerArtistaMasPopular(listaCanciones).getNombre();
-            JOptionPane.showMessageDialog(null, "El artista mas popular es: " + artistap);
+            //JOptionPane.showMessageDialog(null, "El genero mas popular en la tienda es: " + dato);
+            artistap = obtenerArtistaMasPopular(listaCanciones).getNombre();
+            //JOptionPane.showMessageDialog(null, "El artista mas popular es: " + artistap);
+            Interfaz_consulta consulta = new Interfaz_consulta(dato,artistap,arbol,listaCanciones);
+            consulta.setVisible(true);
 
         } else {
             JOptionPane.showMessageDialog(null, "No hay canciones registradas");
+            Interfaz_consulta consulta = new Interfaz_consulta("No hay canciones registradas","",arbol,listaCanciones);
+            consulta.setVisible(true);
         }
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btnConsultasActionPerformed
 
     private void btnregistrarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarArtistaActionPerformed
