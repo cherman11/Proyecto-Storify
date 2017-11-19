@@ -8,8 +8,6 @@ package Mundo;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
 import java.awt.BorderLayout;
-import java.awt.event.FocusAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -55,18 +53,17 @@ public class InterfazYoutube extends Thread {
         public interfaz(String url) {
 
             NativeInterface.open();
+            
+            
             SwingUtilities.invokeLater(() -> {
                 frame = new JFrame();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 frame.setSize(700, 500);
                 frame.getContentPane().add(getwebBrower(url));
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);                
             });
-            NativeInterface.runEventPump();
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                NativeInterface.open();
-            }));
+           
         }
 
         public JPanel getwebBrower(String url) {

@@ -4,6 +4,7 @@
 package Interfaz;
 
 import Mundo.*;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -15,7 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class Interfaz_registroUsuario extends javax.swing.JFrame {
 
+    Usuario usuario;
     ListaUsuarios usuarios;
+    boolean bandera;
     Registro registrar = new Registro();
 
     /**
@@ -25,6 +28,7 @@ public class Interfaz_registroUsuario extends javax.swing.JFrame {
         initComponents();
         usuarios = registrar.getUsuarios();
         setLocationRelativeTo(this);
+        bandera=false;
     }
 
     /**
@@ -60,6 +64,11 @@ public class Interfaz_registroUsuario extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Username");
 
+        txtuser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtuserFocusLost(evt);
+            }
+        });
         txtuser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtuserKeyPressed(evt);
@@ -200,7 +209,7 @@ public class Interfaz_registroUsuario extends javax.swing.JFrame {
             pwd1.setText("");
             pwd2.setText("");
         }
-        if (estadoPassword == 0 && estadodatos == 0) {
+        if (estadoPassword == 0 && estadodatos == 0 && bandera) {
             System.out.println("registrando..");
             usuarios.addUsuario(txtuser.getText(), pwd1.getText(), txtcorreo.getText());
             JOptionPane.showMessageDialog(null, "registro Realizado con exito");
@@ -245,6 +254,28 @@ public class Interfaz_registroUsuario extends javax.swing.JFrame {
             btnguardarActionPerformed(e);
         }          // TODO add your handling code here:
     }//GEN-LAST:event_pwd2KeyPressed
+
+    private void txtuserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtuserFocusLost
+        usuario = usuarios.getUsuario(txtuser.getText());
+        if(usuario==null){
+            bandera=true;
+            jLabel2.setForeground(Color.white);
+            txtcorreo.enable(bandera);
+            pwd1.enable(bandera);
+            pwd2.enable(bandera);
+            btnguardar.enable(bandera);
+        }else{
+            bandera=false;
+            JOptionPane.showMessageDialog(null,"Nombre de usuario ya esta en uso");
+            jLabel2.setForeground(Color.red);
+            txtcorreo.enable(bandera);
+            pwd1.enable(bandera);
+            pwd2.enable(bandera);
+            btnguardar.enable(bandera);
+        }
+
+    }//GEN-LAST:event_txtuserFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnvolver;

@@ -6,7 +6,7 @@
 5;Ozuna;Dominicana;false
 6;Felipe Pelaez;Colombia;false
 #Canciones
-Maluma;Corazon;Nego do borel;2017;5;Reggaeton;https:https://www.youtube.com/embed/btbmtFH0eEg
+Maluma;Corazon;Nego do borel;2017;5;Reggaeton;https://www.youtube.com/embed/btbmtFH0eEg
 Felipe Pelaez;Vivo pensando en ti;Felipe Pelaez;2017;4;Pop;https://www.youtube.com/embed/cPW9Y94BJI0
 Maluma;Felices los 4;Vol 1;2017;3;Reggaeton;https://www.youtube.com/embed/t_jHrUE5IOk
 Rio Roma;Por eso te amo;Verdad;2017;3;Pop;https://www.youtube.com/embed/9jirj0OjI-M

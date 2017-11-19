@@ -57,6 +57,7 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         usuario = usuarios.getUsuario(user);
         labelUser.setText(usuario.getUsuario());
         listauser = usuario.getRegistroCancionesUsuario();
+        registrar.actualizarUsuarios(usuarios);
         cargarCancionesAdmin();//recarga de lista canciones admin
         cargarCancionesUsuario();//recarga de lista de canciones user
         cargarDatosUsersFavoritas();//recarga de lista de canciones favoritas
@@ -616,10 +617,12 @@ public class Interfaz_usuario extends javax.swing.JFrame {
         Interfaz_login login = new Interfaz_login();
         login.setVisible(true);
         this.dispose();
+        registrar.actualizarUsuarios(usuarios);
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnagregarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarCancionActionPerformed
         //agrega canciones a mis canciones
+        registrar.actualizarUsuarios(usuarios);
         Artista arista = null;
         String genero1 = "";
         String url = "";

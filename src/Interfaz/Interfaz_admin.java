@@ -225,14 +225,13 @@ public class Interfaz_admin extends javax.swing.JFrame {
                     dato = generopopular.get(i).getGenero();
                 }
             }
-            //JOptionPane.showMessageDialog(null, "El genero mas popular en la tienda es: " + dato);
-            artistap = obtenerArtistaMasPopular(listaCanciones).getNombre();
-            //JOptionPane.showMessageDialog(null, "El artista mas popular es: " + artistap);
+            
+            artistap = obtenerArtistaMasPopular(listaCanciones).getNombre();            
             Interfaz_consulta consulta = new Interfaz_consulta(dato,artistap,arbol,listaCanciones);
             consulta.setVisible(true);
 
         } else {
-            JOptionPane.showMessageDialog(null, "No hay canciones registradas");
+            
             Interfaz_consulta consulta = new Interfaz_consulta("No hay canciones registradas","",arbol,listaCanciones);
             consulta.setVisible(true);
         }
