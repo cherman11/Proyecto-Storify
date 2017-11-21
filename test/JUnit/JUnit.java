@@ -5,7 +5,6 @@ package JUnit;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import Mundo.ArbolBinario;
 import Mundo.Artista;
 import Mundo.Cancion;
@@ -24,10 +23,15 @@ import org.junit.Test;
 
 /**
  *
- * @author Raul
+ * @author German F Valencia
+ * @author Raul Pineda
+ * @author Victor H Buritica
  */
 public class JUnit {
 
+    /**
+     * 1.Metodo de prueba para buscar un artista en el arbol binario
+     */
     @Test
     public void testBuscarArtista() {
 
@@ -40,12 +44,13 @@ public class JUnit {
         NodoArtista res = a.buscarNodo("Rio Roma");
 
         assertEquals(res, "Maluma");
-        
 
     }
 
+    /**
+     * 2.Metodo prueba que verifica si un arbol esta vacio
+     */
     @Test
-
     public void arbolVacio() {
 
         ArbolBinario b = new ArbolBinario();
@@ -57,8 +62,10 @@ public class JUnit {
 
     }
 
+    /**
+     * 3.Metodo prueba para contar nodos
+     */
     @Test
-
     public void testContarNodos() {
 
         ArbolBinario c = new ArbolBinario();
@@ -70,12 +77,14 @@ public class JUnit {
         assertTrue(c.cantidadNodos(0) == 4);
     }
 
+    /**
+     * 4.Metodo prueba para obtener la raiz de un arbol
+     */
     @Test
     public void testGetRaiz() {
 
         ArbolBinario d = new ArbolBinario();
 
-        
         d.agregarNodoArtista(new Artista(1, "Maluma", "Colombia", false));
         d.agregarNodoArtista(new Artista(2, "Rio Roma", "Colombia", true));
         d.agregarNodoArtista(new Artista(3, "The Mills", "Colombia", true));
@@ -86,6 +95,9 @@ public class JUnit {
 
     }
 
+    /**
+     * 5.Metodo prueba para lista de canciones vacias
+     */
     @Test
     public void testListavacia() {
         ListaCancion e = new ListaCancion();
@@ -95,6 +107,9 @@ public class JUnit {
 
     }
 
+    /**
+     * 6.Metodo prueba para saber el tamaño de una lista
+     */
     @Test
     public void testTamanioLista() {
         ListaCancion f = new ListaCancion();
@@ -108,6 +123,9 @@ public class JUnit {
         assertTrue(f.getTamano() != 0);
     }
 
+    /**
+     * 7.Metodo prueba para saber el genero mas popular de la tienda
+     */
     @Test
     public void testgeneroPopular() {
         GeneroPopular gp;
@@ -117,6 +135,9 @@ public class JUnit {
         assertFalse(gp.getValor() == 4);
     }
 
+    /**
+     * Metodo constructor de la clase
+     */
     public JUnit() {
 
     }
